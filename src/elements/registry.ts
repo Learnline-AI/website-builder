@@ -26,11 +26,14 @@ import { feedbackRegistry } from './molecules/feedback';
 // Import registry entries from organism categories
 import { organismsRegistry } from './organisms';
 
+// Import registry entries from templates
+import { templateRegistry } from './templates';
+
 // ============================================
 // TYPE DEFINITIONS
 // ============================================
 
-export type ElementLayer = 'atom' | 'molecule' | 'organism';
+export type ElementLayer = 'atom' | 'molecule' | 'organism' | 'template';
 
 export type AtomCategory =
   | 'backgrounds'
@@ -52,7 +55,13 @@ export type MoleculeCategory =
   | 'indicators'
   | 'feedback';
 
-export type ElementCategory = AtomCategory | MoleculeCategory | 'organisms';
+export type TemplateCategory =
+  | 'marketing'
+  | 'application'
+  | 'content'
+  | 'auth';
+
+export type ElementCategory = AtomCategory | MoleculeCategory | 'organisms' | TemplateCategory;
 
 export type PreviewType = 'inline' | 'card' | 'fullwidth';
 export type ImplementationType = 'css-class' | 'component' | 'hook' | 'token';
@@ -137,6 +146,12 @@ export const categoryMeta: CategoryMeta[] = [
 
   // Organism category
   { id: 'organisms', name: 'Organisms', description: 'Complex composed components', layer: 'organism', elementCount: 156 },
+
+  // Template categories
+  { id: 'marketing', name: 'Marketing', description: 'Landing pages, pricing, and feature pages', layer: 'template', elementCount: 15 },
+  { id: 'application', name: 'Application', description: 'Dashboard, settings, and profile pages', layer: 'template', elementCount: 13 },
+  { id: 'content', name: 'Content', description: 'Blog, article, and gallery pages', layer: 'template', elementCount: 16 },
+  { id: 'auth', name: 'Auth', description: 'Login, signup, and checkout pages', layer: 'template', elementCount: 17 },
 ];
 
 // ============================================
@@ -194,6 +209,9 @@ export const elementRegistry: ElementEntry[] = [
 
   // Organisms - All categories
   ...organismsRegistry,
+
+  // Templates - All categories
+  ...templateRegistry,
 ];
 
 // ============================================
@@ -260,6 +278,7 @@ export function getElementsByLayerGrouped(): Record<ElementLayer, ElementEntry[]
     atom: getElementsByLayer('atom'),
     molecule: getElementsByLayer('molecule'),
     organism: getElementsByLayer('organism'),
+    template: getElementsByLayer('template'),
   };
 }
 
@@ -285,6 +304,7 @@ export function countElementsByLayer(): Record<ElementLayer, number> {
     atom: getElementsByLayer('atom').length,
     molecule: getElementsByLayer('molecule').length,
     organism: getElementsByLayer('organism').length,
+    template: getElementsByLayer('template').length,
   };
 }
 

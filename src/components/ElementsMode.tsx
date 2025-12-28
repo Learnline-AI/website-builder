@@ -31,6 +31,12 @@ const layers: { id: ElementLayer; name: string; description: string; icon: React
     description: 'Complex components',
     icon: <><circle cx="12" cy="8" r="3" /><circle cx="7" cy="15" r="3" /><circle cx="17" cy="15" r="3" /><line x1="12" y1="11" x2="7" y2="12" /><line x1="12" y1="11" x2="17" y2="12" /></>,
   },
+  {
+    id: 'template',
+    name: 'Templates',
+    description: 'Full page layouts',
+    icon: <><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 9v12" /></>,
+  },
 ];
 
 // Category icon mapping
@@ -54,6 +60,11 @@ const categoryIconMap: Record<string, React.ReactNode> = {
   indicators: <><circle cx="12" cy="12" r="10" /><path d="M12 6v6l4 2" /></>,
   feedback: <><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></>,
   organisms: <><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 3v18M3 9h18" /></>,
+  // Template categories
+  marketing: <><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></>,
+  application: <><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 21V9" /></>,
+  content: <><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></>,
+  auth: <><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></>,
 };
 
 export function ElementsMode() {
@@ -95,6 +106,7 @@ export function ElementsMode() {
       atom: getElementsByLayer('atom').length,
       molecule: getElementsByLayer('molecule').length,
       organism: getElementsByLayer('organism').length,
+      template: getElementsByLayer('template').length,
     };
   }, []);
 
@@ -339,6 +351,7 @@ function ElementCard({ element, index, onClick }: ElementCardProps) {
     atom: { bg: 'from-cyan-500/20 to-blue-500/20', text: 'text-cyan-400', border: 'border-cyan-500/30' },
     molecule: { bg: 'from-violet-500/20 to-fuchsia-500/20', text: 'text-violet-400', border: 'border-violet-500/30' },
     organism: { bg: 'from-amber-500/20 to-orange-500/20', text: 'text-amber-400', border: 'border-amber-500/30' },
+    template: { bg: 'from-emerald-500/20 to-teal-500/20', text: 'text-emerald-400', border: 'border-emerald-500/30' },
   };
 
   const colors = layerColors[element.layer];
