@@ -23,6 +23,9 @@ import { cardRegistry } from './molecules/cards';
 import { indicatorRegistry } from './molecules/indicators';
 import { feedbackRegistry } from './molecules/feedback';
 
+// Import registry entries from organism categories
+import { organismsRegistry } from './organisms';
+
 // ============================================
 // TYPE DEFINITIONS
 // ============================================
@@ -133,7 +136,7 @@ export const categoryMeta: CategoryMeta[] = [
   { id: 'feedback', name: 'Feedback', description: 'Tooltips, toasts, and alerts', layer: 'molecule', elementCount: 20 },
 
   // Organism category
-  { id: 'organisms', name: 'Organisms', description: 'Complex composed components', layer: 'organism', elementCount: 88 },
+  { id: 'organisms', name: 'Organisms', description: 'Complex composed components', layer: 'organism', elementCount: 156 },
 ];
 
 // ============================================
@@ -188,6 +191,9 @@ export const elementRegistry: ElementEntry[] = [
 
   // Molecules - Feedback
   ...feedbackRegistry,
+
+  // Organisms - All categories
+  ...organismsRegistry,
 ];
 
 // ============================================

@@ -1,9 +1,14 @@
 // UI Museum Element Library
 // Atomic Design Structure: Atoms -> Molecules -> Organisms
 
+// Export atoms (no conflicts)
 export * from './atoms';
+
+// Export molecules (no conflicts with atoms)
 export * from './molecules';
-export * from './organisms';
+
+// Export organisms registry only (to avoid component name conflicts)
+export { organismsRegistry } from './organisms';
 
 // Registry exports
 export {
