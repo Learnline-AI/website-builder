@@ -59,6 +59,9 @@ import { jungleTempleComponents } from './jungle-temple';
 import { scrollEffects } from './effects/scroll';
 import { textEffects } from './effects/text';
 import { cursorEffects } from './effects/cursor';
+import { hoverEffects } from './effects/hover';
+import { backgroundEffects } from './effects/background';
+import { transitionEffects } from './effects/transitions';
 
 // Combine all components into a single registry
 export const componentRegistry: Record<string, React.FC> = {
@@ -128,6 +131,12 @@ export const componentRegistry: Record<string, React.FC> = {
   ...cursorEffects,
   // Effects Library - Text Effects
   ...textEffects,
+  // Effects Library - Hover Effects
+  ...hoverEffects,
+  // Effects Library - Background Effects
+  ...backgroundEffects,
+  // Effects Library - Transition Effects
+  ...transitionEffects,
 };
 
 // Error boundary for individual component previews

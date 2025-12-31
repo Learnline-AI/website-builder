@@ -14,6 +14,7 @@ import { zones } from './data/zones'
 import { FavoritesProvider, RecentlyViewedProvider } from './contexts'
 import { initializeSearchIndex } from './utils/initializeSearch'
 import { useKeyboardShortcuts } from './hooks/useKeyboardShortcuts'
+import { getAllComponentIds } from './library'
 import { SkipLink } from './components/shared/SkipLink'
 import { LiveRegion } from './components/shared/LiveRegion'
 
@@ -55,7 +56,7 @@ export default function App() {
   const [shortcutsModalOpen, setShortcutsModalOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
   const [focusedComponentIndex, setFocusedComponentIndex] = useState(-1)
-  const [componentCount] = useState(100) // Default component count for navigation
+  const componentCount = getAllComponentIds().length
   const [liveMessage, setLiveMessage] = useState('')
   const [livePriority, setLivePriority] = useState<'polite' | 'assertive'>('polite')
 

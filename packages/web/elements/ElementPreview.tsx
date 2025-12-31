@@ -84,7 +84,7 @@ function LivePreview({ element, interactive }: LivePreviewProps) {
     <div
       className={`
         relative w-full h-full min-h-[120px] rounded-xl overflow-hidden
-        flex items-center justify-center
+        flex items-center justify-center text-white
         ${bgClass}
         ${!interactive ? 'pointer-events-none' : ''}
       `}
