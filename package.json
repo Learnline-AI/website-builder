@@ -1,22 +1,42 @@
 {
   "name": "ui-museum",
   "version": "1.0.0",
-  "description": "Cabinet of Interface Curiosities - A component library browser",
+  "private": true,
+  "description": "UI Museum - Website Builder Platform with Component Library",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview"
-  },
-  "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "dev": "turbo run dev --parallel",
+    "dev:web": "pnpm --filter @ui-museum/web dev",
+    "dev:server": "pnpm --filter @ui-museum/server dev",
+    "dev:mcp": "pnpm --filter @ui-museum/mcp dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "type-check": "turbo run type-check",
+    "test": "turbo run test",
+    "test:shared": "pnpm --filter @ui-museum/shared test",
+    "test:mcp": "pnpm --filter @ui-museum/mcp test",
+    "db:generate": "pnpm --filter @ui-museum/shared db:generate",
+    "db:push": "pnpm --filter @ui-museum/shared db:push",
+    "db:migrate": "pnpm --filter @ui-museum/shared db:migrate",
+    "db:studio": "pnpm --filter @ui-museum/shared db:studio",
+    "db:seed": "pnpm --filter @ui-museum/shared db:seed",
+    "clean": "turbo run clean && rm -rf node_modules"
   },
   "devDependencies": {
-    "@types/react": "^19.0.0",
-    "@types/react-dom": "^19.0.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "typescript": "~5.6.0",
-    "vite": "^6.0.0"
+    "turbo": "^2.3.0",
+    "typescript": "~5.6.0"
+  },
+  "packageManager": "pnpm@10.26.2",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@prisma/client",
+      "@prisma/engines",
+      "esbuild",
+      "prisma"
+    ]
   }
 }

@@ -4,20 +4,20 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "lib": ["ES2022"],
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "declaration": true,
+    "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "declaration": true,
-    "declarationMap": true,
-    "composite": true
+    "isolatedModules": true
   },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"],
   "references": [
-    { "path": "./packages/shared" },
-    { "path": "./packages/server" },
-    { "path": "./packages/mcp" },
-    { "path": "./packages/web" }
-  ],
-  "exclude": ["node_modules", "dist", "**/dist"]
+    { "path": "../shared" }
+  ]
 }

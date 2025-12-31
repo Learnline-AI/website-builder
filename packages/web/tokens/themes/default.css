@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Default Theme (Light)
+   Clean, modern, professional appearance
+   ========================================================================== */
+
+.theme-default,
+:root {
+  /* This is the base theme - semantic.css already defines these values */
+  /* Explicitly set here for clarity and theme switching */
+
+  /* Colors */
+  --color-primary: var(--color-blue-500);
+  --color-primary-hover: var(--color-blue-600);
+  --color-primary-active: var(--color-blue-700);
+  --color-primary-subtle: var(--color-blue-50);
+
+  --color-secondary: var(--color-gray-600);
+  --color-secondary-hover: var(--color-gray-700);
+
+  --color-accent: var(--color-purple-500);
+  --color-accent-hover: var(--color-purple-600);
+
+  --color-background: var(--color-white);
+  --color-background-subtle: var(--color-gray-50);
+  --color-background-muted: var(--color-gray-100);
+
+  --color-surface: var(--color-white);
+  --color-surface-hover: var(--color-gray-50);
+  --color-surface-elevated: var(--color-white);
+
+  --color-text: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(--color-gray-500);
+  --color-text-inverse: var(--color-white);
+  --color-text-on-primary: var(--color-white);
+
+  --color-border: var(--color-gray-200);
+  --color-border-muted: var(--color-gray-100);
+  --color-border-strong: var(--color-gray-300);
+
+  /* Shadows */
+  --shadow-card: var(--shadow-sm);
+  --shadow-card-hover: var(--shadow-md);
+  --shadow-button: var(--shadow-sm);
+  --shadow-button-hover: var(--shadow-md);
+
+  /* Radii */
+  --radius-button: var(--radius-lg);
+  --radius-card: var(--radius-xl);
+  --radius-input: var(--radius-lg);
+
+  /* Typography */
+  --font-family-heading: var(--font-family-sans);
+  --font-family-body: var(--font-family-sans);
+}

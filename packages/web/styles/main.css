@@ -1,0 +1,772 @@
+/* ==========================================================================
+   UI Museum - Main Stylesheet
+   MODERNIZATION v2.0 - Updated December 2024
+   ========================================================================== */
+
+/* Tailwind CSS v4 */
+@import "tailwindcss";
+
+/* Design tokens (CSS variables) */
+@import '../tokens/index.css';
+
+/* Tailwind v4 theme configuration */
+@theme {
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-arcade: 'Press Start 2P', monospace;
+  --font-pulp: 'Special Elite', cursive;
+  --font-hand: 'Caveat', cursive;
+}
+
+/* ==========================================================================
+   MODERN ANIMATION DEFAULTS - Phase 0 Modernization
+   Tokens are now imported from tokens/core/timing.css
+   This section contains utility classes and global animation overrides.
+   ========================================================================== */
+
+/* Default transition for all interactive elements */
+button,
+a,
+[role="button"],
+.interactive {
+  transition-duration: var(--duration-normal);
+  transition-timing-function: var(--ease-out);
+}
+
+/* Hover scale normalization - prevent excessive scaling */
+.hover\:scale-110:hover {
+  transform: scale(var(--scale-normal)) !important; /* Override 1.1 to 1.03 */
+}
+
+/* ==========================================================================
+   Accessibility - Focus Styles
+   ========================================================================== */
+
+/* Hide focus outline for mouse users, show for keyboard users */
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #6366f1;
+  outline-offset: 2px;
+}
+
+/* Specific focus-visible styles for dark backgrounds */
+*:focus-visible {
+  outline-color: #6366f1;
+  outline-style: solid;
+  outline-width: 2px;
+}
+
+/* Screen reader only - visually hidden but accessible */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Show when focused (for skip links) */
+.sr-only:focus,
+.sr-only:active {
+  position: static;
+  width: auto;
+  height: auto;
+  padding: inherit;
+  margin: inherit;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+/* Ensure reduced motion preferences are respected */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode improvements */
+@media (prefers-contrast: more) {
+  :focus-visible {
+    outline-width: 3px;
+    outline-color: #fff;
+  }
+
+  button,
+  a,
+  [role="button"] {
+    border-width: 2px;
+  }
+}
+
+/* Custom scrollbar styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 3px;
+}
+
+/* Zone scroll snapping */
+.zone-snap {
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.zone-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  position: relative;
+}
+
+/* ==========================================================================
+   Journey Mode Transitions
+   ========================================================================== */
+
+/* Zone entrance animations */
+@keyframes zoneEnter {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes zoneContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes zoneFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes zoneSlideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* Parallax layer styles */
+.zone-parallax-bg {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  transform: translateZ(0);
+  transition: transform 0.1s linear;
+}
+
+.zone-parallax-slow {
+  transform: translateY(calc(var(--scroll-progress, 0) * -20px));
+}
+
+.zone-parallax-medium {
+  transform: translateY(calc(var(--scroll-progress, 0) * -40px));
+}
+
+.zone-parallax-fast {
+  transform: translateY(calc(var(--scroll-progress, 0) * -60px));
+}
+
+/* Zone content container with entrance animation */
+.zone-content {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zone-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Component cards staggered entrance */
+.zone-component-grid {
+  --stagger-delay: 50ms;
+}
+
+.zone-component-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+  transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zone-component-card.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Portal transition effect */
+@keyframes portalOpen {
+  0% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+  100% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+}
+
+@keyframes portalClose {
+  0% {
+    clip-path: circle(150% at 50% 50%);
+    opacity: 1;
+  }
+  100% {
+    clip-path: circle(0% at 50% 50%);
+    opacity: 0;
+  }
+}
+
+.zone-portal-enter {
+  animation: portalOpen 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.zone-portal-exit {
+  animation: portalClose 0.6s cubic-bezier(0.7, 0, 0.84, 0) forwards;
+}
+
+/* Wipe transition effect */
+@keyframes wipeDown {
+  from {
+    clip-path: inset(0 0 100% 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+@keyframes wipeUp {
+  from {
+    clip-path: inset(100% 0 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.zone-wipe-down {
+  animation: wipeDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.zone-wipe-up {
+  animation: wipeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Zone progress indicator */
+.zone-progress-indicator {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.zone-progress-dot {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zone-progress-dot::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s ease;
+}
+
+.zone-progress-dot.active::before {
+  opacity: 0.5;
+  transform: scale(1);
+}
+
+.zone-progress-dot::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  border-radius: 50%;
+  background: currentColor;
+  transform: scale(0);
+  transition: transform 0.3s ease;
+}
+
+.zone-progress-dot.active::after {
+  transform: scale(1);
+}
+
+/* Progress line connecting dots */
+.zone-progress-line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.zone-progress-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: currentColor;
+  transition: height 0.3s ease;
+}
+
+/* Ambient particle effects */
+@keyframes particleFloat {
+  0%, 100% {
+    transform: translateY(0) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) translateX(20px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes particlePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 1;
+  }
+}
+
+.zone-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particleFloat linear infinite;
+}
+
+.zone-particle-glow {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particlePulse 2s ease-in-out infinite;
+  box-shadow: 0 0 6px currentColor, 0 0 12px currentColor; /* MODERNIZED: reduced glow */
+}
+
+/* Zone transition overlay */
+.zone-transition-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 40;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.zone-transition-overlay.active {
+  opacity: 1;
+}
+
+/* Color blend transition between zones */
+.zone-color-blend {
+  position: absolute;
+  inset: 0;
+  transition: background-color 1s cubic-bezier(0.16, 1, 0.3, 1),
+              background 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Zone divider with gradient effect */
+.zone-divider {
+  position: relative;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.zone-divider::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--zone-accent, white) 50%,
+    transparent
+  );
+  opacity: 0.3;
+}
+
+.zone-divider-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--zone-bg, #111);
+  border: 1px solid var(--zone-accent, white);
+  opacity: 0.5;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.zone-divider:hover .zone-divider-icon {
+  opacity: 1;
+  transform: scale(1.03); /* MODERNIZED: reduced from 1.1 */
+}
+
+/* Performance optimizations */
+.zone-section,
+.zone-content,
+.zone-parallax-bg,
+.zone-component-card {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* GPU acceleration hint */
+.zone-gpu-accelerated {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* Noise texture overlay */
+.noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+}
+
+/* Halftone pattern */
+.halftone {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+/* Scanlines */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+}
+
+/* CRT glow effect - MODERNIZED: reduced intensity */
+.crt-glow {
+  text-shadow: 0 0 6px currentColor, 0 0 12px currentColor;
+}
+
+/* Blueprint grid */
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Leather texture */
+.leather-texture {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='leather'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.04' numOctaves='5'/%3E%3CfeDisplacementMap in='SourceGraphic' scale='5'/%3E%3C/filter%3E%3Crect width='100' height='100' fill='%23a0785a' filter='url(%23leather)'/%3E%3C/svg%3E");
+}
+
+/* Paper texture */
+.paper-texture {
+  background-color: #f5f1e6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.04' numOctaves='5'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23paper)' opacity='0.1'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================================
+   MODERN ANIMATION UTILITIES - Phase 0 Modernization
+   Reusable animation classes using design tokens
+   ========================================================================== */
+
+/* Modern hover scale utilities */
+.hover-lift {
+  transition: transform var(--duration-fast) var(--ease-out),
+              box-shadow var(--duration-fast) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px) scale(var(--scale-subtle));
+}
+
+.hover-glow {
+  transition: box-shadow var(--duration-normal) var(--ease-out);
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 var(--glow-normal) currentColor;
+}
+
+/* Modern fade utilities */
+.fade-in {
+  animation: fadeIn var(--duration-normal) var(--ease-out) forwards;
+}
+
+.fade-in-up {
+  animation: fadeInUp var(--duration-slow) var(--ease-out) forwards;
+}
+
+.fade-in-down {
+  animation: fadeInDown var(--duration-slow) var(--ease-out) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Modern pulse - reduced intensity */
+.pulse-subtle {
+  animation: pulseSubtle 2s var(--ease-in-out) infinite;
+}
+
+@keyframes pulseSubtle {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.85; }
+}
+
+/* Modern glow pulse - reduced intensity */
+.glow-pulse {
+  animation: glowPulse 2s var(--ease-in-out) infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow: 0 0 var(--glow-soft) currentColor;
+  }
+  50% {
+    box-shadow: 0 0 var(--glow-normal) currentColor;
+  }
+}
+
+/* Staggered animation delays */
+.stagger-1 { animation-delay: calc(var(--stagger-normal) * 1); }
+.stagger-2 { animation-delay: calc(var(--stagger-normal) * 2); }
+.stagger-3 { animation-delay: calc(var(--stagger-normal) * 3); }
+.stagger-4 { animation-delay: calc(var(--stagger-normal) * 4); }
+.stagger-5 { animation-delay: calc(var(--stagger-normal) * 5); }
+.stagger-6 { animation-delay: calc(var(--stagger-normal) * 6); }
+.stagger-7 { animation-delay: calc(var(--stagger-normal) * 7); }
+.stagger-8 { animation-delay: calc(var(--stagger-normal) * 8); }
+
+/* Modern background classes - use instead of pure black */
+.bg-void { background-color: var(--color-void); }
+.bg-elevated { background-color: var(--color-dark-elevated); }
+.bg-surface { background-color: var(--color-dark-surface); }
+
+/* Modern text shadow utilities - reduced glow */
+.text-glow-subtle {
+  text-shadow: 0 0 var(--glow-subtle) currentColor;
+}
+
+.text-glow-normal {
+  text-shadow: 0 0 var(--glow-soft) currentColor,
+               0 0 var(--glow-normal) currentColor;
+}
+
+.text-glow-strong {
+  text-shadow: 0 0 var(--glow-soft) currentColor,
+               0 0 var(--glow-normal) currentColor,
+               0 0 var(--glow-medium) currentColor;
+}
+
+/* Modern box shadow utilities - reduced glow */
+.shadow-glow-subtle {
+  box-shadow: 0 0 var(--glow-subtle) currentColor;
+}
+
+.shadow-glow-normal {
+  box-shadow: 0 0 var(--glow-soft) currentColor,
+              0 0 var(--glow-normal) currentColor;
+}
+
+.shadow-glow-strong {
+  box-shadow: 0 0 var(--glow-soft) currentColor,
+              0 0 var(--glow-normal) currentColor,
+              0 0 var(--glow-strong) currentColor;
+}
+
+/* Transition utilities using tokens */
+.transition-fast {
+  transition-duration: var(--duration-fast);
+  transition-timing-function: var(--ease-out);
+}
+
+.transition-normal {
+  transition-duration: var(--duration-normal);
+  transition-timing-function: var(--ease-out);
+}
+
+.transition-slow {
+  transition-duration: var(--duration-slow);
+  transition-timing-function: var(--ease-out);
+}
+
+.transition-spring {
+  transition-timing-function: var(--ease-spring);
+}
+
+/* Scale utilities */
+.scale-press:active {
+  transform: scale(var(--scale-press));
+}
+
+.scale-hover:hover {
+  transform: scale(var(--scale-subtle));
+}
+
+/* ==========================================================================
+   REDUCED MOTION SUPPORT - Phase 0 Accessibility
+   Respects user preferences for reduced motion.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  /* Disable all animations and transitions */
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Remove animated backgrounds */
+  .animate-pulse,
+  .pulse-subtle,
+  .glow-pulse,
+  .animate-spin,
+  .animate-bounce,
+  .animate-ping {
+    animation: none !important;
+  }
+
+  /* Disable hover transforms */
+  .hover-lift:hover,
+  .scale-hover:hover {
+    transform: none !important;
+  }
+
+  /* Keep essential visibility */
+  .fade-in,
+  .fade-in-up,
+  .fade-in-down {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
+
+/* ==========================================================================
+   MODERN BACKGROUND OVERRIDE
+   Override pure black backgrounds globally with softer dark tones.
+   Apply this at the end to catch utility class overrides.
+   ========================================================================== */
+
+/* Zone container backgrounds - softer than pure black */
+.library-zone-bg {
+  background-color: #0a0a0a; /* --color-void equivalent */
+}
+
+/* Component preview cards - elevated surface */
+.component-card-bg {
+  background-color: #121212; /* --color-dark-elevated equivalent */
+}

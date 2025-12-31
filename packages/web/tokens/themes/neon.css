@@ -1,0 +1,86 @@
+/* ==========================================================================
+   Neon/Cyberpunk Theme
+   Dark with vivid neon accents and glow effects
+   ========================================================================== */
+
+.theme-neon {
+  /* Colors - Dark with neon accents */
+  --color-primary: var(--color-neon-green);
+  --color-primary-hover: #44ff11;
+  --color-primary-active: #22dd00;
+  --color-primary-subtle: rgba(51, 255, 0, 0.1);
+
+  --color-secondary: var(--color-neon-pink);
+  --color-secondary-hover: #ff22ff;
+
+  --color-accent: var(--color-neon-cyan);
+  --color-accent-hover: #22ffff;
+  --color-accent-subtle: rgba(0, 255, 255, 0.1);
+
+  --color-background: #0a0a0f;
+  --color-background-subtle: #0f0f18;
+  --color-background-muted: #141422;
+
+  --color-surface: #12121f;
+  --color-surface-hover: #1a1a2e;
+  --color-surface-active: #22223a;
+  --color-surface-elevated: #18182a;
+
+  --color-text: var(--color-neon-green);
+  --color-text-secondary: #88ff66;
+  --color-text-muted: #66cc44;
+  --color-text-inverse: var(--color-black);
+  --color-text-on-primary: var(--color-black);
+
+  --color-border: rgba(51, 255, 0, 0.3);
+  --color-border-muted: rgba(51, 255, 0, 0.15);
+  --color-border-strong: rgba(51, 255, 0, 0.5);
+  --color-border-focus: var(--color-neon-green);
+
+  /* Status Colors - Neon variants */
+  --color-success: var(--color-neon-green);
+  --color-success-subtle: rgba(51, 255, 0, 0.1);
+  --color-success-text: var(--color-neon-green);
+
+  --color-warning: var(--color-neon-yellow);
+  --color-warning-subtle: rgba(255, 255, 0, 0.1);
+  --color-warning-text: var(--color-neon-yellow);
+
+  --color-error: #ff3366;
+  --color-error-subtle: rgba(255, 51, 102, 0.1);
+  --color-error-text: #ff3366;
+
+  --color-info: var(--color-neon-cyan);
+  --color-info-subtle: rgba(0, 255, 255, 0.1);
+  --color-info-text: var(--color-neon-cyan);
+
+  /* Shadows - Neon glows */
+  --shadow-card: 0 0 10px rgba(51, 255, 0, 0.2), inset 0 0 20px rgba(51, 255, 0, 0.05);
+  --shadow-card-hover: 0 0 20px rgba(51, 255, 0, 0.4), inset 0 0 30px rgba(51, 255, 0, 0.1);
+  --shadow-button: 0 0 10px rgba(51, 255, 0, 0.3);
+  --shadow-button-hover: var(--shadow-glow-neon-green);
+  --shadow-dropdown: 0 0 30px rgba(51, 255, 0, 0.3);
+  --shadow-modal: 0 0 50px rgba(51, 255, 0, 0.4);
+
+  /* Radii - Minimal */
+  --radius-button: var(--radius-sm);
+  --radius-card: var(--radius-md);
+  --radius-input: var(--radius-sm);
+
+  /* Borders */
+  --border-width-default: var(--border-width-1);
+
+  /* Typography - Monospace for cyber feel */
+  --font-family-heading: var(--font-family-mono);
+  --font-family-body: var(--font-family-mono);
+  --letter-spacing-heading: var(--letter-spacing-wider);
+
+  /* Ring - Neon glow */
+  --ring-color: var(--color-neon-green);
+  --ring-offset-color: #0a0a0f;
+  --shadow-ring: 0 0 0 2px #0a0a0f, 0 0 0 4px var(--color-neon-green),
+                 0 0 10px var(--color-neon-green);
+
+  /* Transitions - Slightly longer for glow effects */
+  --transition-normal: 250ms ease;
+}

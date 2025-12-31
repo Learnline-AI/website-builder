@@ -1,0 +1,172 @@
+/* ==========================================================================
+   Semantic Tokens
+   Intent-based tokens - these are what components should use
+   Default values that get overridden by theme classes
+   ========================================================================== */
+
+:root {
+  /* ==========================================================================
+     COLORS - Semantic
+     ========================================================================== */
+
+  /* Primary - Main brand/action color */
+  --color-primary: var(--color-blue-500);
+  --color-primary-hover: var(--color-blue-600);
+  --color-primary-active: var(--color-blue-700);
+  --color-primary-subtle: var(--color-blue-50);
+
+  /* Secondary - Supporting color */
+  --color-secondary: var(--color-gray-600);
+  --color-secondary-hover: var(--color-gray-700);
+  --color-secondary-active: var(--color-gray-800);
+  --color-secondary-subtle: var(--color-gray-100);
+
+  /* Accent - Highlight/emphasis color */
+  --color-accent: var(--color-purple-500);
+  --color-accent-hover: var(--color-purple-600);
+  --color-accent-subtle: var(--color-purple-50);
+
+  /* Background */
+  --color-background: var(--color-white);
+  --color-background-subtle: var(--color-gray-50);
+  --color-background-muted: var(--color-gray-100);
+
+  /* Surface - Cards, modals, elevated elements */
+  --color-surface: var(--color-white);
+  --color-surface-hover: var(--color-gray-50);
+  --color-surface-active: var(--color-gray-100);
+  --color-surface-elevated: var(--color-white);
+
+  /* Text */
+  --color-text: var(--color-gray-900);
+  --color-text-secondary: var(--color-gray-600);
+  --color-text-muted: var(--color-gray-500);
+  --color-text-inverse: var(--color-white);
+  --color-text-on-primary: var(--color-white);
+
+  /* Border */
+  --color-border: var(--color-gray-200);
+  --color-border-muted: var(--color-gray-100);
+  --color-border-strong: var(--color-gray-300);
+  --color-border-focus: var(--color-blue-500);
+
+  /* Status Colors */
+  --color-success: var(--color-green-500);
+  --color-success-subtle: var(--color-green-50);
+  --color-success-text: var(--color-green-700);
+
+  --color-warning: var(--color-yellow-500);
+  --color-warning-subtle: var(--color-yellow-50);
+  --color-warning-text: var(--color-yellow-700);
+
+  --color-error: var(--color-red-500);
+  --color-error-subtle: var(--color-red-50);
+  --color-error-text: var(--color-red-700);
+
+  --color-info: var(--color-blue-500);
+  --color-info-subtle: var(--color-blue-50);
+  --color-info-text: var(--color-blue-700);
+
+  /* ==========================================================================
+     SPACING - Semantic
+     ========================================================================== */
+
+  --spacing-xs: var(--spacing-1);      /* 4px - Tight spacing */
+  --spacing-sm: var(--spacing-2);      /* 8px - Small gaps */
+  --spacing-md: var(--spacing-4);      /* 16px - Default spacing */
+  --spacing-lg: var(--spacing-6);      /* 24px - Larger sections */
+  --spacing-xl: var(--spacing-8);      /* 32px - Section padding */
+  --spacing-2xl: var(--spacing-12);    /* 48px - Large sections */
+  --spacing-3xl: var(--spacing-16);    /* 64px - Page sections */
+
+  /* Component-specific spacing */
+  --spacing-button-x: var(--spacing-4);
+  --spacing-button-y: var(--spacing-2);
+  --spacing-card-padding: var(--spacing-6);
+  --spacing-input-x: var(--spacing-3);
+  --spacing-input-y: var(--spacing-2);
+  --spacing-section: var(--spacing-16);
+
+  /* ==========================================================================
+     TYPOGRAPHY - Semantic
+     ========================================================================== */
+
+  --font-family-body: var(--font-family-sans);
+  --font-family-heading: var(--font-family-sans);
+  --font-family-code: var(--font-family-mono);
+
+  /* Heading sizes */
+  --font-size-h1: var(--font-size-4xl);
+  --font-size-h2: var(--font-size-3xl);
+  --font-size-h3: var(--font-size-2xl);
+  --font-size-h4: var(--font-size-xl);
+  --font-size-h5: var(--font-size-lg);
+  --font-size-h6: var(--font-size-base);
+
+  /* Body text */
+  --font-size-body: var(--font-size-base);
+  --font-size-body-sm: var(--font-size-sm);
+  --font-size-body-lg: var(--font-size-lg);
+  --font-size-caption: var(--font-size-xs);
+
+  /* Line heights */
+  --line-height-heading: var(--line-height-tight);
+  --line-height-body: var(--line-height-normal);
+
+  /* ==========================================================================
+     SHADOWS - Semantic
+     ========================================================================== */
+
+  --shadow-card: var(--shadow-sm);
+  --shadow-card-hover: var(--shadow-md);
+  --shadow-dropdown: var(--shadow-lg);
+  --shadow-modal: var(--shadow-xl);
+  --shadow-button: var(--shadow-sm);
+  --shadow-button-hover: var(--shadow-md);
+  --shadow-input-focus: var(--shadow-ring);
+
+  /* ==========================================================================
+     RADII - Semantic
+     ========================================================================== */
+
+  --radius-button: var(--radius-lg);
+  --radius-card: var(--radius-xl);
+  --radius-input: var(--radius-lg);
+  --radius-badge: var(--radius-full);
+  --radius-modal: var(--radius-2xl);
+  --radius-tooltip: var(--radius-md);
+
+  /* ==========================================================================
+     BORDERS - Semantic
+     ========================================================================== */
+
+  --border-width-default: var(--border-width-1);
+  --border-width-thick: var(--border-width-2);
+
+  /* ==========================================================================
+     TRANSITIONS - Semantic
+     ========================================================================== */
+
+  --transition-fast: 150ms ease;
+  --transition-normal: 200ms ease;
+  --transition-slow: 300ms ease;
+
+  --transition-colors: color var(--transition-normal),
+                       background-color var(--transition-normal),
+                       border-color var(--transition-normal);
+  --transition-transform: transform var(--transition-normal);
+  --transition-shadow: box-shadow var(--transition-normal);
+  --transition-all: all var(--transition-normal);
+
+  /* ==========================================================================
+     Z-INDEX - Semantic
+     ========================================================================== */
+
+  --z-dropdown: 1000;
+  --z-sticky: 1020;
+  --z-fixed: 1030;
+  --z-modal-backdrop: 1040;
+  --z-modal: 1050;
+  --z-popover: 1060;
+  --z-tooltip: 1070;
+}

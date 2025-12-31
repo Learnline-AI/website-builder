@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "ui-museum": {
+      "command": "node",
+      "args": ["packages/mcp/dist/index.js"],
+      "env": {
+        "DATABASE_URL": "postgresql://ui_museum:development@localhost:5432/ui_museum"
+      }
+    }
+  }
+}

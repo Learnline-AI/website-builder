@@ -1,0 +1,95 @@
+// Prisma Schema for UI Museum
+// PostgreSQL database
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// PROJECT MODEL
+// ============================================
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  slug        String   @unique
+
+  // Settings
+  settings    Json     @default("{}")
+
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  recipes     Recipe[]
+  assets      Asset[]
+
+  @@index([slug])
+}
+
+// ============================================
+// RECIPE MODEL
+// ============================================
+
+model Recipe {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  slug        String
+
+  // Recipe content (JSON structure)
+  content     Json     @default("{}")
+
+  // Metadata
+  isPublished Boolean  @default(false)
+  version     Int      @default(1)
+
+  // Timestamps
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  project     Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String
+
+  @@unique([projectId, slug])
+  @@index([projectId])
+}
+
+// ============================================
+// ASSET MODEL
+// ============================================
+
+model Asset {
+  id          String    @id @default(cuid())
+  filename    String
+  originalName String
+  mimeType    String
+  size        Int
+
+  // Storage path relative to uploads directory
+  path        String
+
+  // Optional metadata
+  width       Int?
+  height      Int?
+  alt         String?
+
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // Relations
+  project     Project   @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId   String
+
+  @@index([projectId])
+  @@index([mimeType])
+}

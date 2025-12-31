@@ -1,0 +1,87 @@
+/* ==========================================================================
+   Cosmic/Space Theme
+   Deep space colors with aurora and starlight accents
+   ========================================================================== */
+
+.theme-cosmic {
+  /* Colors - Deep space with cosmic accents */
+  --color-primary: var(--color-cosmic-aurora);
+  --color-primary-hover: #22ffaa;
+  --color-primary-active: #00dd77;
+  --color-primary-subtle: rgba(0, 255, 136, 0.1);
+
+  --color-secondary: var(--color-purple-400);
+  --color-secondary-hover: var(--color-purple-300);
+
+  --color-accent: var(--color-cosmic-star);
+  --color-accent-hover: #ffdd22;
+  --color-accent-subtle: rgba(255, 215, 0, 0.1);
+
+  --color-background: var(--color-cosmic-void);
+  --color-background-subtle: #0d0d22;
+  --color-background-muted: var(--color-cosmic-nebula);
+
+  --color-surface: rgba(255, 255, 255, 0.05);
+  --color-surface-hover: rgba(255, 255, 255, 0.08);
+  --color-surface-active: rgba(255, 255, 255, 0.12);
+  --color-surface-elevated: rgba(255, 255, 255, 0.07);
+
+  --color-text: #e0e8ff;
+  --color-text-secondary: #a0b0dd;
+  --color-text-muted: #7080aa;
+  --color-text-inverse: var(--color-cosmic-void);
+  --color-text-on-primary: var(--color-cosmic-void);
+
+  --color-border: rgba(160, 180, 255, 0.2);
+  --color-border-muted: rgba(160, 180, 255, 0.1);
+  --color-border-strong: rgba(160, 180, 255, 0.3);
+  --color-border-focus: var(--color-cosmic-aurora);
+
+  /* Status Colors */
+  --color-success: var(--color-cosmic-aurora);
+  --color-success-subtle: rgba(0, 255, 136, 0.1);
+  --color-success-text: var(--color-cosmic-aurora);
+
+  --color-warning: var(--color-cosmic-star);
+  --color-warning-subtle: rgba(255, 215, 0, 0.1);
+  --color-warning-text: var(--color-cosmic-star);
+
+  --color-error: #ff6699;
+  --color-error-subtle: rgba(255, 102, 153, 0.1);
+  --color-error-text: #ff6699;
+
+  --color-info: var(--color-purple-400);
+  --color-info-subtle: rgba(192, 132, 252, 0.1);
+  --color-info-text: var(--color-purple-400);
+
+  /* Shadows - Ethereal glows */
+  --shadow-card: 0 4px 20px rgba(0, 255, 136, 0.1),
+                 0 0 40px rgba(138, 43, 226, 0.1);
+  --shadow-card-hover: 0 8px 30px rgba(0, 255, 136, 0.2),
+                       0 0 60px rgba(138, 43, 226, 0.15);
+  --shadow-button: 0 0 15px rgba(0, 255, 136, 0.2);
+  --shadow-button-hover: 0 0 25px rgba(0, 255, 136, 0.4),
+                         0 0 50px rgba(0, 255, 136, 0.2);
+  --shadow-dropdown: 0 10px 40px rgba(0, 0, 0, 0.5),
+                     0 0 30px rgba(138, 43, 226, 0.2);
+  --shadow-modal: 0 20px 60px rgba(0, 0, 0, 0.6),
+                  0 0 50px rgba(0, 255, 136, 0.2);
+
+  /* Radii - Soft, rounded */
+  --radius-button: var(--radius-xl);
+  --radius-card: var(--radius-2xl);
+  --radius-input: var(--radius-xl);
+
+  /* Typography */
+  --font-family-heading: var(--font-family-cosmic);
+  --font-family-body: var(--font-family-sans);
+  --letter-spacing-heading: var(--letter-spacing-wide);
+
+  /* Ring */
+  --ring-color: var(--color-cosmic-aurora);
+  --ring-offset-color: var(--color-cosmic-void);
+
+  /* Transitions - Smooth, flowing */
+  --transition-normal: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}

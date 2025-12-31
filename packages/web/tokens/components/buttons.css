@@ -1,0 +1,61 @@
+/* ==========================================================================
+   Themed Button Styles
+   CSS for themed button hover/focus/active states
+   ========================================================================== */
+
+/* Base themed button reset */
+.themed-button {
+  outline: none;
+  text-decoration: none;
+  user-select: none;
+}
+
+/* Hover states */
+.themed-button--primary:hover:not(:disabled) {
+  background-color: var(--color-primary-hover);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.themed-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
+}
+
+.themed-button--ghost:hover:not(:disabled) {
+  background-color: var(--color-surface-hover);
+}
+
+.themed-button--outline:hover:not(:disabled) {
+  background-color: var(--color-primary-subtle);
+}
+
+.themed-button--success:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.themed-button--warning:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-button-hover);
+}
+
+.themed-button--error:hover:not(:disabled) {
+  filter: brightness(1.1);
+  box-shadow: var(--shadow-button-hover);
+}
+
+/* Focus states */
+.themed-button:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Active states */
+.themed-button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+/* Disabled state */
+.themed-button:disabled {
+  pointer-events: none;
+}

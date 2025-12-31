@@ -1,0 +1,141 @@
+/* ==========================================================================
+   Core Timing & Animation Tokens
+   Phase 0 Modernization - December 2024
+
+   These tokens define the motion design language for UI Museum.
+   Use these values consistently across all components.
+   ========================================================================== */
+
+:root {
+  /* ===========================================================================
+     DURATION TOKENS
+     Fast, snappy transitions feel more premium than slow, floaty ones.
+     Default to --duration-normal (200ms) for most interactions.
+     =========================================================================== */
+
+  --duration-instant: 100ms;    /* Micro-interactions (tooltips, highlights) */
+  --duration-fast: 150ms;       /* Quick feedback (hover states) */
+  --duration-normal: 200ms;     /* Standard transitions (DEFAULT) */
+  --duration-slow: 300ms;       /* Emphasized transitions (modals opening) */
+  --duration-slower: 500ms;     /* Major transitions (page/zone changes) */
+  --duration-slowest: 800ms;    /* Dramatic effects (portal transitions) */
+
+  /* ===========================================================================
+     EASING TOKENS
+     Modern easing curves for natural-feeling motion.
+     --ease-out is the default for most UI interactions.
+     =========================================================================== */
+
+  /* Standard easings */
+  --ease-linear: linear;
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);           /* DEFAULT - Quick start, gentle end */
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Expressive easings */
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);   /* Bouncy overshoot */
+  --ease-bounce: cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Playful bounce */
+  --ease-smooth: cubic-bezier(0.45, 0, 0.55, 1);      /* Extra smooth */
+
+  /* ===========================================================================
+     SCALE TOKENS
+     Subtle scale changes feel more refined than dramatic ones.
+     --scale-subtle (1.02) is preferred for most hover states.
+     =========================================================================== */
+
+  --scale-subtle: 1.02;         /* Preferred hover scale */
+  --scale-normal: 1.03;         /* Moderate emphasis */
+  --scale-emphasis: 1.05;       /* Strong emphasis (active states) */
+  --scale-press: 0.98;          /* Button press feedback */
+  --scale-press-deep: 0.95;     /* Strong press feedback */
+
+  /* ===========================================================================
+     GLOW INTENSITY TOKENS
+     Reduced glow intensities for a more refined look.
+     Strong glows should be rare and intentional.
+     =========================================================================== */
+
+  --glow-subtle: 6px;           /* Barely visible glow */
+  --glow-soft: 8px;             /* Soft accent glow */
+  --glow-normal: 10px;          /* Standard glow (DEFAULT) */
+  --glow-medium: 12px;          /* Moderate glow */
+  --glow-strong: 16px;          /* Strong emphasis (use sparingly) */
+  --glow-intense: 20px;         /* Maximum glow (special effects only) */
+
+  /* ===========================================================================
+     OPACITY TOKENS
+     Consistent opacity values across the design system.
+     =========================================================================== */
+
+  --opacity-disabled: 0.5;
+  --opacity-muted: 0.6;
+  --opacity-secondary: 0.7;
+  --opacity-primary: 1;
+  --opacity-overlay-light: 0.3;
+  --opacity-overlay-medium: 0.5;
+  --opacity-overlay-dark: 0.7;
+
+  /* ===========================================================================
+     ANIMATION DELAY TOKENS
+     For staggered animations in lists/grids.
+     =========================================================================== */
+
+  --stagger-fast: 30ms;
+  --stagger-normal: 50ms;
+  --stagger-slow: 80ms;
+
+  /* ===========================================================================
+     BLUR TOKENS
+     For glassmorphism and depth effects.
+     =========================================================================== */
+
+  --blur-subtle: 4px;
+  --blur-normal: 8px;
+  --blur-strong: 16px;
+  --blur-intense: 24px;
+
+  /* ===========================================================================
+     Z-INDEX SCALE
+     Consistent layering across the application.
+     =========================================================================== */
+
+  --z-base: 0;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-popover: 500;
+  --z-tooltip: 600;
+  --z-toast: 700;
+  --z-max: 9999;
+}
+
+/* ===========================================================================
+   COMPOSITE TRANSITION TOKENS
+   Pre-composed transition values for common patterns.
+   =========================================================================== */
+
+:root {
+  /* Standard transitions */
+  --transition-fast: var(--duration-fast) var(--ease-out);
+  --transition-normal: var(--duration-normal) var(--ease-out);
+  --transition-slow: var(--duration-slow) var(--ease-out);
+
+  /* Property-specific transitions */
+  --transition-colors: color var(--duration-normal) var(--ease-out),
+                       background-color var(--duration-normal) var(--ease-out),
+                       border-color var(--duration-normal) var(--ease-out);
+
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+
+  --transition-all: all var(--duration-normal) var(--ease-out);
+
+  /* Interactive element transitions */
+  --transition-interactive:
+    transform var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out),
+    box-shadow var(--duration-normal) var(--ease-out);
+}

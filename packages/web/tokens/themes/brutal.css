@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Neo-Brutalist Theme
+   Bold, stark, high-contrast with hard shadows
+   ========================================================================== */
+
+.theme-brutal {
+  /* Colors - High contrast, limited palette */
+  --color-primary: var(--color-black);
+  --color-primary-hover: var(--color-gray-800);
+  --color-primary-active: var(--color-gray-900);
+  --color-primary-subtle: var(--color-yellow-100);
+
+  --color-secondary: var(--color-white);
+  --color-secondary-hover: var(--color-gray-100);
+
+  --color-accent: var(--color-yellow-400);
+  --color-accent-hover: var(--color-yellow-300);
+  --color-accent-subtle: var(--color-yellow-50);
+
+  --color-background: var(--color-yellow-50);
+  --color-background-subtle: var(--color-yellow-100);
+  --color-background-muted: var(--color-yellow-200);
+
+  --color-surface: var(--color-white);
+  --color-surface-hover: var(--color-gray-50);
+  --color-surface-elevated: var(--color-white);
+
+  --color-text: var(--color-black);
+  --color-text-secondary: var(--color-gray-800);
+  --color-text-muted: var(--color-gray-600);
+  --color-text-inverse: var(--color-white);
+  --color-text-on-primary: var(--color-white);
+
+  --color-border: var(--color-black);
+  --color-border-muted: var(--color-gray-800);
+  --color-border-strong: var(--color-black);
+
+  /* Shadows - Hard offset shadows only */
+  --shadow-card: var(--shadow-hard-4);
+  --shadow-card-hover: var(--shadow-hard-8);
+  --shadow-button: var(--shadow-hard-4);
+  --shadow-button-hover: var(--shadow-hard-6);
+  --shadow-dropdown: var(--shadow-hard-8);
+  --shadow-modal: var(--shadow-hard-12);
+
+  /* Radii - None or minimal */
+  --radius-button: var(--radius-none);
+  --radius-card: var(--radius-none);
+  --radius-input: var(--radius-none);
+  --radius-badge: var(--radius-none);
+  --radius-modal: var(--radius-none);
+  --radius-tooltip: var(--radius-none);
+
+  /* Borders - Thick */
+  --border-width-default: var(--border-width-2);
+  --border-width-thick: var(--border-width-4);
+
+  /* Typography - Bold, impactful */
+  --font-family-heading: var(--font-family-brutalist);
+  --font-weight-heading: var(--font-weight-black);
+  --letter-spacing-heading: var(--letter-spacing-tight);
+
+  /* Transitions - Snappy */
+  --transition-normal: 100ms ease;
+  --transition-fast: 50ms ease;
+}
