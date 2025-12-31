@@ -483,3 +483,29 @@ export const MapPin: React.FC<IconProps> = ({ size = 24, className = '', style }
     <circle cx="12" cy="10" r="3" />
   </svg>
 );
+
+export const Diamond: React.FC<IconProps> = ({ size = 24, className = '', style }) => (
+  <svg width={size} height={size} className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2.7 10.3a2.41 2.41 0 0 0 0 3.41l7.59 7.59a2.41 2.41 0 0 0 3.41 0l7.59-7.59a2.41 2.41 0 0 0 0-3.41l-7.59-7.59a2.41 2.41 0 0 0-3.41 0Z" />
+  </svg>
+);
+
+export const Crown: React.FC<IconProps> = ({ size = 24, className = '', style }) => (
+  <svg width={size} height={size} className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z" />
+    <path d="M3 20h18" />
+  </svg>
+);
+
+export const Award: React.FC<IconProps> = ({ size = 24, className = '', style }) => (
+  <svg width={size} height={size} className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="8" r="6" />
+    <path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11" />
+  </svg>
+);
+
+export const ChevronDown: React.FC<IconProps> = ({ size = 24, className = '', style }) => (
+  <svg width={size} height={size} className={className} style={style} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="6 9 12 15 18 9" />
+  </svg>
+);

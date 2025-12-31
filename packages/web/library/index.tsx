@@ -18,6 +18,12 @@ import { steampunkComponents } from './steampunk-workshop';
 import { cyberpunkComponents } from './cyberpunk-district';
 import { medievalComponents } from './medieval-scriptorium';
 import { spaceStationComponents } from './space-station';
+// Phase 2 zones
+import { luxuryShowroomComponents } from './luxury-showroom';
+import { brutalistBunkerComponents } from './brutalist-bunker';
+import { vaporwaveDreamscapeComponents } from './vaporwave-dreamscape';
+import { indieAppWorkshopComponents } from './indie-app-workshop';
+import { dataDashboardComponents } from './data-dashboard';
 
 // Combine all components into a single registry
 export const componentRegistry: Record<string, React.FC> = {
@@ -38,6 +44,12 @@ export const componentRegistry: Record<string, React.FC> = {
   ...cyberpunkComponents,
   ...medievalComponents,
   ...spaceStationComponents,
+  // Phase 2 zones
+  ...luxuryShowroomComponents,
+  ...brutalistBunkerComponents,
+  ...vaporwaveDreamscapeComponents,
+  ...indieAppWorkshopComponents,
+  ...dataDashboardComponents,
 };
 
 // Error boundary for individual component previews
