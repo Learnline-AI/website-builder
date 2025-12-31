@@ -5,6 +5,7 @@ import { zones } from '../data/zones'
 import { getComponentsByCategory, ComponentEntry } from '../data/registry'
 import { VirtualizedGrid } from '../utils/VirtualizedGrid'
 import { ComponentCardSkeleton } from './shared/ComponentCardSkeleton'
+import { ComponentPreview } from '../library'
 
 // Icon mapping
 const iconMap: Record<string, React.ReactNode> = {
@@ -379,40 +380,24 @@ function CatalogCard({ component, index, isFocused = false, onClick }: CatalogCa
         animationDelay: `${index * 30}ms`,
       }}
     >
-      {/* Preview area */}
-      <div className="aspect-[4/3] relative flex items-center justify-center p-6 bg-gradient-to-br from-neutral-800/50 to-neutral-900/50">
-        {/* Zone accent glow */}
+      {/* Preview area - Live component render */}
+      <div className="aspect-[4/3] relative overflow-hidden bg-neutral-900">
+        {/* Live component preview */}
+        <div className="absolute inset-0 pointer-events-none">
+          <ComponentPreview componentId={component.id} />
+        </div>
+
+        {/* Hover overlay */}
         <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none"
           style={{
-            background: `radial-gradient(circle at center, ${zone.accentColor}10 0%, transparent 70%)`
+            background: `linear-gradient(to top, ${zone.accentColor}40 0%, transparent 50%)`
           }}
         />
 
-        {/* Simple preview icon */}
-        <div
-          className="w-16 h-16 rounded-xl flex items-center justify-center transition-all duration-300 group-hover:scale-110"
-          style={{
-            backgroundColor: `${zone.accentColor}20`,
-            border: `2px solid ${zone.accentColor}40`,
-          }}
-        >
-          <svg
-            className="w-7 h-7 transition-colors duration-300"
-            style={{ color: zone.accentColor }}
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <rect x="3" y="3" width="18" height="18" rx="2" />
-            <path d="M9 9h6M9 15h6" />
-          </svg>
-        </div>
-
         {/* Interactive badge */}
         {component.isInteractive && (
-          <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30">
+          <div className="absolute top-3 right-3 flex items-center gap-1 px-2 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/30 backdrop-blur-sm">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
             <span className="text-[10px] font-medium text-emerald-400 uppercase tracking-wider">
               Interactive
@@ -422,7 +407,7 @@ function CatalogCard({ component, index, isFocused = false, onClick }: CatalogCa
 
         {/* Focus indicator */}
         {isFocused && (
-          <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 rounded-full bg-indigo-500/30 border border-indigo-500/50">
+          <div className="absolute top-3 left-3 flex items-center gap-1 px-2 py-1 rounded-full bg-indigo-500/30 border border-indigo-500/50 backdrop-blur-sm">
             <span className="text-[10px] font-medium text-indigo-300 uppercase tracking-wider">
               Press Enter
             </span>

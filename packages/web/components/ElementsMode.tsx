@@ -10,6 +10,7 @@ import {
   searchElements,
   getCategoriesForLayer,
 } from '../elements/registry';
+import { ElementPreview } from '../elements/ElementPreview';
 
 // Layer configuration
 const layers: { id: ElementLayer; name: string; description: string; icon: React.ReactNode }[] = [
@@ -372,6 +373,8 @@ function ElementCard({ element, index, onClick }: ElementCardProps) {
   };
 
   const colors = layerColors[element.layer];
+  // Check if element has a renderable component or CSS class
+  const canRenderLive = !!element.component || !!element.cssClass;
 
   // Use compact card for icons and small atoms
   const isCompact = element.layer === 'atom' && ['icons', 'shapes', 'badges'].includes(element.category);
@@ -383,11 +386,19 @@ function ElementCard({ element, index, onClick }: ElementCardProps) {
         className="group flex items-center gap-3 p-3 bg-neutral-900/50 rounded-xl border border-white/10 text-left transition-all duration-300 hover:border-white/20 hover:bg-neutral-800/50 focus:outline-none focus:ring-2 focus:ring-violet-500/50"
         style={{ animationDelay: `${index * 20}ms` }}
       >
-        {/* Icon preview */}
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center bg-gradient-to-br ${colors.bg} border ${colors.border} transition-transform duration-300 group-hover:scale-110 flex-shrink-0`}>
-          <svg className={`w-5 h-5 ${colors.text}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            {categoryIconMap[element.category] || <rect x="3" y="3" width="18" height="18" rx="2" />}
-          </svg>
+        {/* Icon preview - live or fallback */}
+        <div className={`w-10 h-10 rounded-lg overflow-hidden bg-gradient-to-br ${colors.bg} border ${colors.border} transition-transform duration-300 group-hover:scale-110 flex-shrink-0`}>
+          {canRenderLive ? (
+            <div className="w-full h-full pointer-events-none flex items-center justify-center">
+              <ElementPreview elementId={element.id} className="w-full h-full" interactive={false} />
+            </div>
+          ) : (
+            <div className="w-full h-full flex items-center justify-center">
+              <svg className={`w-5 h-5 ${colors.text}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {categoryIconMap[element.category] || <rect x="3" y="3" width="18" height="18" rx="2" />}
+              </svg>
+            </div>
+          )}
         </div>
 
         {/* Content */}
@@ -421,14 +432,21 @@ function ElementCard({ element, index, onClick }: ElementCardProps) {
       className="group relative bg-neutral-900/50 rounded-2xl border border-white/10 overflow-hidden text-left transition-all duration-300 hover:border-white/20 hover:bg-neutral-800/50 focus:outline-none focus:ring-2 focus:ring-violet-500/50"
       style={{ animationDelay: `${index * 20}ms` }}
     >
-      {/* Preview area */}
-      <div className={`aspect-square relative flex items-center justify-center p-4 bg-gradient-to-br ${colors.bg}`}>
-        {/* Placeholder preview */}
-        <div className={`w-12 h-12 rounded-xl border-2 ${colors.border} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
-          <svg className={`w-6 h-6 ${colors.text}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            {categoryIconMap[element.category] || <rect x="3" y="3" width="18" height="18" rx="2" />}
-          </svg>
-        </div>
+      {/* Preview area - Live component or fallback */}
+      <div className="aspect-square relative overflow-hidden bg-neutral-900">
+        {canRenderLive ? (
+          <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
+            <ElementPreview elementId={element.id} className="w-full h-full" interactive={false} />
+          </div>
+        ) : (
+          <div className={`absolute inset-0 flex items-center justify-center bg-gradient-to-br ${colors.bg}`}>
+            <div className={`w-12 h-12 rounded-xl border-2 ${colors.border} flex items-center justify-center transition-transform duration-300 group-hover:scale-110`}>
+              <svg className={`w-6 h-6 ${colors.text}`} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {categoryIconMap[element.category] || <rect x="3" y="3" width="18" height="18" rx="2" />}
+              </svg>
+            </div>
+          </div>
+        )}
 
         {/* Implementation type badge */}
         <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/40 backdrop-blur-sm">

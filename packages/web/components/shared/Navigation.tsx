@@ -1,10 +1,12 @@
 import { useApp } from '../../App'
 import { zones } from '../../data/zones'
 import { ThemeSwitcher } from './ThemeSwitcher'
+import { getAllComponentIds } from '../../library'
 
 export function Navigation() {
   const { mode, setMode, currentZone, setSearchOpen } = useApp()
   const currentZoneData = zones.find(z => z.id === currentZone) || zones[0]
+  const componentCount = getAllComponentIds().length
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50" role="banner">
@@ -233,9 +235,9 @@ export function Navigation() {
               borderColor: mode === 'journey' ? `${currentZoneData.accentColor}33` : 'rgba(255, 255, 255, 0.1)',
               color: mode === 'journey' ? currentZoneData.textColor : 'rgba(255, 255, 255, 0.7)'
             }}
-            aria-label="105 plus components available"
+            aria-label={`${componentCount} components available`}
           >
-            <span className="text-sm font-mono" aria-hidden="true">105+</span>
+            <span className="text-sm font-mono" aria-hidden="true">{componentCount}</span>
             <span className="text-xs opacity-70" aria-hidden="true">components</span>
           </div>
         </div>
