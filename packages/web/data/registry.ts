@@ -1922,7 +1922,7 @@ export const componentRegistry: ComponentEntry[] = [
     id: 'origami-submit',
     name: 'Origami Submit',
     description: 'Form submission that folds into an origami paper airplane and flies away',
-    zone: 'artist-studio',
+    zone: 'pulp-detective',
     categories: ['buttons', 'transitions'],
     tags: ['origami', 'paper', 'fold', 'submit', 'animation'],
     sourceFile: 'ComicDemos.tsx',

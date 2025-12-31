@@ -22,7 +22,7 @@ export const zones: Zone[] = [
     accentColor: '#33ff00',
     textColor: '#33ff00',
     fontFamily: 'arcade',
-    componentCount: 11,
+    componentCount: 20,
   },
   {
     id: 'pulp-detective',
@@ -34,7 +34,7 @@ export const zones: Zone[] = [
     accentColor: '#8B0000',
     textColor: '#2d2416',
     fontFamily: 'pulp',
-    componentCount: 9,
+    componentCount: 14,
   },
   {
     id: 'hacker-terminal',
@@ -46,7 +46,7 @@ export const zones: Zone[] = [
     accentColor: '#00ff00',
     textColor: '#00ff00',
     fontFamily: 'mono',
-    componentCount: 10,
+    componentCount: 18,
   },
   {
     id: 'mad-science',
@@ -58,7 +58,7 @@ export const zones: Zone[] = [
     accentColor: '#00ffff',
     textColor: '#00ffff',
     fontFamily: 'mono',
-    componentCount: 10,
+    componentCount: 17,
   },
   {
     id: 'physics-playground',
@@ -70,7 +70,7 @@ export const zones: Zone[] = [
     accentColor: '#6366f1',
     textColor: '#e0e7ff',
     fontFamily: 'body',
-    componentCount: 9,
+    componentCount: 17,
   },
   {
     id: 'organic-garden',
@@ -94,7 +94,7 @@ export const zones: Zone[] = [
     accentColor: '#00d2ff',
     textColor: '#e0f2fe',
     fontFamily: 'body',
-    componentCount: 8,
+    componentCount: 18,
   },
   {
     id: 'retro-office',
@@ -106,7 +106,7 @@ export const zones: Zone[] = [
     accentColor: '#8b7355',
     textColor: '#3d3425',
     fontFamily: 'body',
-    componentCount: 10,
+    componentCount: 16,
   },
   {
     id: 'cinema-stage',
@@ -130,7 +130,7 @@ export const zones: Zone[] = [
     accentColor: '#3b82f6',
     textColor: '#1e3a5f',
     fontFamily: 'mono',
-    componentCount: 9,
+    componentCount: 11,
   },
   {
     id: 'artist-studio',
@@ -142,7 +142,7 @@ export const zones: Zone[] = [
     accentColor: '#ec4899',
     textColor: '#374151',
     fontFamily: 'hand',
-    componentCount: 9,
+    componentCount: 11,
   },
   // ============ NEW ZONES ============
   {
@@ -155,7 +155,7 @@ export const zones: Zone[] = [
     accentColor: '#00e5ff',
     textColor: '#b3e5fc',
     fontFamily: 'body',
-    componentCount: 5,
+    componentCount: 10,
   },
   {
     id: 'steampunk-workshop',
@@ -167,7 +167,7 @@ export const zones: Zone[] = [
     accentColor: '#cd7f32',
     textColor: '#daa520',
     fontFamily: 'display',
-    componentCount: 5,
+    componentCount: 10,
   },
   {
     id: 'cyberpunk-district',
@@ -179,7 +179,7 @@ export const zones: Zone[] = [
     accentColor: '#ff00ff',
     textColor: '#e0b0ff',
     fontFamily: 'mono',
-    componentCount: 5,
+    componentCount: 10,
   },
   {
     id: 'medieval-scriptorium',
@@ -191,7 +191,7 @@ export const zones: Zone[] = [
     accentColor: '#c9a227',
     textColor: '#f4e4bc',
     fontFamily: 'display',
-    componentCount: 5,
+    componentCount: 10,
   },
   {
     id: 'space-station',
@@ -203,7 +203,7 @@ export const zones: Zone[] = [
     accentColor: '#4ade80',
     textColor: '#d1fae5',
     fontFamily: 'mono',
-    componentCount: 5,
+    componentCount: 10,
   },
   // ============ PHASE 2 ZONES ============
   {

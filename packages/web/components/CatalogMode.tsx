@@ -39,6 +39,7 @@ const filterChips = [
 export function CatalogMode() {
   const [activeCategory, setActiveCategory] = useState(categories[0].id)
   const [activeFilters, setActiveFilters] = useState<string[]>([])
+  const [activeZone, setActiveZone] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(true)
   const { setSelectedComponent, focusedComponentIndex, setFocusedComponentIndex } = useApp()
   const gridContainerRef = useRef<HTMLDivElement>(null)
@@ -48,11 +49,16 @@ export function CatalogMode() {
     setIsLoading(true)
     const timer = setTimeout(() => setIsLoading(false), 300)
     return () => clearTimeout(timer)
-  }, [activeCategory, activeFilters])
+  }, [activeCategory, activeFilters, activeZone])
 
   // Get components based on category and filters
   const components = useMemo(() => {
     let result = getComponentsByCategory(activeCategory)
+
+    // Apply zone filter if selected
+    if (activeZone) {
+      result = result.filter(component => component.zone === activeZone)
+    }
 
     // Apply additional filters if any are selected
     if (activeFilters.length > 0 && !activeFilters.includes('all')) {
@@ -62,7 +68,7 @@ export function CatalogMode() {
     }
 
     return result
-  }, [activeCategory, activeFilters])
+  }, [activeCategory, activeFilters, activeZone])
 
   const activeCategoryData = categories.find(c => c.id === activeCategory)!
 
@@ -83,6 +89,7 @@ export function CatalogMode() {
   // Clear all filters
   const clearFilters = () => {
     setActiveFilters([])
+    setActiveZone(null)
   }
 
   // Reset scroll and focused index when category or filters change
@@ -91,7 +98,7 @@ export function CatalogMode() {
       gridContainerRef.current.scrollTop = 0
     }
     setFocusedComponentIndex(-1)
-  }, [activeCategory, activeFilters, setFocusedComponentIndex])
+  }, [activeCategory, activeFilters, activeZone, setFocusedComponentIndex])
 
   // Scroll focused component into view
   useEffect(() => {
@@ -157,24 +164,40 @@ export function CatalogMode() {
 
         {/* Zone filter (quick access) */}
         <div className="p-4 border-t border-white/10">
-          <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50 mb-3 px-3">
-            Quick Zone Access
-          </h3>
-          <div className="flex flex-wrap gap-1.5 px-2">
-            {zones.map(zone => (
+          <div className="flex items-center justify-between mb-3 px-3">
+            <h3 className="text-xs font-semibold uppercase tracking-widest text-white/50">
+              Quick Zone Access
+            </h3>
+            {activeZone && (
               <button
-                key={zone.id}
-                className="px-2 py-1 rounded-full text-[10px] font-medium transition-all hover:scale-105"
-                style={{
-                  backgroundColor: `${zone.accentColor}20`,
-                  color: zone.accentColor,
-                  border: `1px solid ${zone.accentColor}30`
-                }}
-                title={zone.name}
+                onClick={() => setActiveZone(null)}
+                className="text-xs text-indigo-400 hover:text-indigo-300 transition-colors"
               >
-                {zone.name.split(' ').slice(-1)[0]}
+                Clear
               </button>
-            ))}
+            )}
+          </div>
+          <div className="flex flex-wrap gap-1.5 px-2">
+            {zones.map(zone => {
+              const isActive = activeZone === zone.id
+              return (
+                <button
+                  key={zone.id}
+                  onClick={() => setActiveZone(isActive ? null : zone.id)}
+                  className={`px-2 py-1 rounded-full text-[10px] font-medium transition-all hover:scale-105 ${
+                    isActive ? 'ring-2 ring-white/50 scale-105' : ''
+                  }`}
+                  style={{
+                    backgroundColor: isActive ? `${zone.accentColor}40` : `${zone.accentColor}20`,
+                    color: zone.accentColor,
+                    border: `1px solid ${isActive ? zone.accentColor : `${zone.accentColor}30`}`
+                  }}
+                  title={zone.name}
+                >
+                  {zone.name.split(' ').slice(-1)[0]}
+                </button>
+              )
+            })}
           </div>
         </div>
       </aside>

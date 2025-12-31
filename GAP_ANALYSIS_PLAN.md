@@ -91,9 +91,9 @@ The UI Museum has 5 main modes that need testing:
 ### Medium Priority
 | ID | Issue | Location | Status | Fix PR |
 |----|-------|----------|--------|--------|
-| M1 | Zone component count mismatches | data/zones.ts | 🔍 Identified | - |
-| M2 | origami-submit wrong zone | data/registry.ts | 🔍 Identified | - |
-| M3 | Zone Quick Access not filtering | CatalogMode.tsx | 🔍 Identified | - |
+| M1 | Zone component count mismatches | data/zones.ts | ✅ Fixed | Pending |
+| M2 | origami-submit wrong zone | data/registry.ts | ✅ Fixed | Pending |
+| M3 | Zone Quick Access not filtering | CatalogMode.tsx | ✅ Fixed | Pending |
 
 ### Low Priority
 | ID | Issue | Location | Status | Fix PR |
@@ -256,6 +256,9 @@ The UI Museum has 5 main modes that need testing:
 | 15:30 | Elements not visible (icons using currentColor) | Added text-white to LivePreview container | Pending |
 | 15:31 | Missing effects: hover, background, transitions | Added imports and spread to componentRegistry | Pending |
 | 15:33 | Hardcoded componentCount in App.tsx | Made dynamic using getAllComponentIds() | Pending |
+| 15:45 | Zone component counts mismatched | Updated zones.ts with accurate counts from registry | Pending |
+| 15:45 | origami-submit in wrong zone | Changed zone from artist-studio to pulp-detective | Pending |
+| 15:45 | Zone Quick Access buttons not filtering | Added activeZone state and filter logic to CatalogMode | Pending |
 
 ---
 
