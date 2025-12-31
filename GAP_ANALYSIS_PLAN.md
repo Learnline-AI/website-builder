@@ -41,8 +41,8 @@ The UI Museum has 5 main modes that need testing:
 | Journey | Interactive zone exploration with scroll-based navigation | ✅ Working |
 | Catalog | Grid view of all components with filtering | ✅ Working |
 | Elements | Atomic design browser (atoms/molecules/organisms/templates) | ✅ Working |
-| Recipes | Component composition guides | 🔍 Testing |
-| Editor | Visual component editor | 🔍 Testing |
+| Recipes | Component composition guides (6 recipes, theme switching) | ✅ Working |
+| Editor | Visual component editor (drag-drop, property panel, export) | ✅ Working |
 
 ---
 
@@ -137,21 +137,28 @@ The UI Museum has 5 main modes that need testing:
 - [x] Clicking element opens detail
 
 ### Recipes Mode
-- [ ] Recipe list loads
-- [ ] Recipe cards display correctly
-- [ ] Recipe detail view works
+- [x] Recipe list loads (6 example recipes)
+- [x] Recipe cards display correctly (preview, tags, categories)
+- [x] Recipe detail view works (full rendering with theme switching)
+- [x] Category filtering works (7 categories)
+- [x] Theme switcher in preview (6 themes)
 
 ### Editor Mode
-- [ ] Editor interface loads
-- [ ] Component palette shows
-- [ ] Drag and drop works
-- [ ] Property panel updates
+- [x] Editor interface loads (3-panel layout)
+- [x] Component palette shows (632+ elements with search/filter)
+- [x] Drag and drop works (@dnd-kit integration)
+- [x] Property panel updates (props, slots, style tabs)
+- [x] Undo/redo works (50 history entries)
+- [x] Export functionality works (React + Tailwind zip)
+- [x] Preview modal works
 
 ### Theme System
-- [ ] Light theme applies correctly
-- [ ] Dark theme applies correctly
-- [ ] Theme persists on reload
-- [ ] All components respect theme
+- [x] Theme switcher in Navigation
+- [x] 6 themes available (default, dark, brutal, neon, cosmic, glass)
+- [x] Theme persists on reload (localStorage)
+- [x] CSS variable system works
+- [ ] Some hard-coded colors in components (minor)
+- [ ] No system preference detection (prefers-color-scheme)
 
 ---
 
@@ -297,8 +304,13 @@ The UI Museum has 5 main modes that need testing:
 2. [x] Document all discovered issues
 3. [x] Prioritize fixes
 4. [x] Implement fixes (effects integration, visibility, dynamic counts)
-5. [ ] Verify fixes in browser
+5. [x] Verify fixes in browser
 6. [x] Update this document
-7. [ ] Commit all fixes
-8. [ ] Test remaining modes (Recipes, Editor)
+7. [x] Commit all fixes
+8. [x] Test remaining modes (Recipes, Editor) - Both fully functional!
+
+### Future Enhancements (Optional)
+- [ ] Add system preference detection for themes (prefers-color-scheme)
+- [ ] Replace hard-coded focus colors with theme variables
+- [ ] Add theme transition animations
 
