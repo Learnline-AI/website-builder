@@ -1081,8 +1081,1130 @@ export const HackerTerminal = () => {
   );
 };
 
+// --- NEURAL INPUT ---
+export const CyberpunkNeuralInput = () => {
+  const [value, setValue] = useState('');
+  const [isFocused, setIsFocused] = useState(false);
+  const [neuralPulse, setNeuralPulse] = useState(0);
+
+  useEffect(() => {
+    if (!isFocused) return;
+    const interval = setInterval(() => {
+      setNeuralPulse(p => (p + 1) % 100);
+    }, 50);
+    return () => clearInterval(interval);
+  }, [isFocused]);
+
+  return (
+    <div className="h-full flex items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div className="relative w-full max-w-sm">
+        {/* Neural network background */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 300 60">
+          {[...Array(8)].map((_, i) => (
+            <circle
+              key={i}
+              cx={20 + i * 38}
+              cy={30}
+              r={isFocused ? 4 : 2}
+              fill={isFocused ? '#ff00ff' : '#ff00ff40'}
+              style={{
+                filter: isFocused ? 'drop-shadow(0 0 5px #ff00ff)' : 'none',
+                transition: 'all 0.3s',
+              }}
+            />
+          ))}
+          {[...Array(7)].map((_, i) => (
+            <line
+              key={i}
+              x1={24 + i * 38}
+              y1={30}
+              x2={54 + i * 38}
+              y2={30}
+              stroke={isFocused ? '#00ffff' : '#00ffff30'}
+              strokeWidth={isFocused ? 2 : 1}
+              strokeDasharray={isFocused ? '4 2' : 'none'}
+              style={{
+                filter: isFocused ? 'drop-shadow(0 0 3px #00ffff)' : 'none',
+              }}
+            />
+          ))}
+        </svg>
+
+        {/* Input field */}
+        <input
+          type="text"
+          value={value}
+          onChange={e => setValue(e.target.value)}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+          placeholder="NEURAL_INPUT://"
+          className="relative w-full px-4 py-3 font-mono text-sm outline-none"
+          style={{
+            background: 'rgba(26, 10, 46, 0.8)',
+            border: `2px solid ${isFocused ? '#ff00ff' : '#ff00ff40'}`,
+            color: '#e0b0ff',
+            clipPath: 'polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))',
+            boxShadow: isFocused ? '0 0 20px #ff00ff40, inset 0 0 15px #ff00ff20' : 'none',
+          }}
+        />
+
+        {/* Neural sync indicator */}
+        {isFocused && (
+          <div className="absolute -right-2 top-1/2 -translate-y-1/2 flex items-center gap-1">
+            <div
+              className="w-2 h-2 rounded-full bg-[#00ffff]"
+              style={{
+                boxShadow: '0 0 10px #00ffff',
+                opacity: 0.5 + Math.sin(neuralPulse * 0.1) * 0.5,
+              }}
+            />
+          </div>
+        )}
+
+        {/* Label */}
+        <div className="absolute -top-6 left-0 font-mono text-xs text-[#00ffff]">
+          NEURAL_LINK_INTERFACE
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- CHROME BADGE ---
+export const CyberpunkChromeBadge = () => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [shimmerPos, setShimmerPos] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShimmerPos(p => (p + 2) % 200);
+    }, 30);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="h-full flex items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div
+        className="relative px-6 py-2 cursor-pointer"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        style={{
+          background: 'linear-gradient(135deg, #2a2a3a 0%, #1a1a2a 50%, #3a3a4a 100%)',
+          border: '1px solid #00ffff60',
+          borderRadius: '4px',
+          boxShadow: isHovered
+            ? '0 0 20px #00ffff40, inset 0 1px 0 rgba(255,255,255,0.2), inset 0 -1px 0 rgba(0,0,0,0.3)'
+            : 'inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.3)',
+          transform: isHovered ? 'scale(1.05)' : 'scale(1)',
+          transition: 'all 0.2s',
+        }}
+      >
+        {/* Chrome shimmer effect */}
+        <div
+          className="absolute inset-0 overflow-hidden rounded"
+          style={{ opacity: 0.5 }}
+        >
+          <div
+            className="absolute inset-y-0 w-20"
+            style={{
+              left: `${shimmerPos - 100}%`,
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+            }}
+          />
+        </div>
+
+        {/* Badge content */}
+        <div className="relative flex items-center gap-2">
+          <span
+            className="text-sm"
+            style={{
+              background: 'linear-gradient(180deg, #00ffff 0%, #ff00ff 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              filter: 'drop-shadow(0 0 2px #00ffff)',
+            }}
+          >
+            ◆
+          </span>
+          <span
+            className="font-mono text-sm font-bold tracking-wider"
+            style={{
+              background: 'linear-gradient(180deg, #ffffff 0%, #c0c0c0 50%, #808080 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+            }}
+          >
+            CHROME
+          </span>
+          <span className="font-mono text-xs text-[#ff00ff]">v3.0</span>
+        </div>
+
+        {/* Reflection line */}
+        <div
+          className="absolute top-0 left-4 right-4 h-px"
+          style={{
+            background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+// --- DOWNLOAD PROGRESS ---
+export const CyberpunkDownloadProgress = () => {
+  const [progress, setProgress] = useState(0);
+  const [dataBlocks, setDataBlocks] = useState<boolean[]>(Array(20).fill(false));
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress(p => {
+        const next = p >= 100 ? 0 : p + 2;
+        const blockIndex = Math.floor((next / 100) * 20);
+        setDataBlocks(blocks => blocks.map((_, i) => i < blockIndex));
+        return next;
+      });
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="h-full flex flex-col items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div className="w-full max-w-sm">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-2 font-mono text-xs">
+          <span className="text-[#00ffff]">DATA_DOWNLOAD://</span>
+          <span className="text-[#ff00ff]">{progress.toFixed(0)}%</span>
+        </div>
+
+        {/* Progress bar container */}
+        <div
+          className="relative h-8 rounded overflow-hidden"
+          style={{
+            background: 'rgba(26, 10, 46, 0.8)',
+            border: '1px solid #ff00ff40',
+          }}
+        >
+          {/* Data blocks */}
+          <div className="absolute inset-1 flex gap-0.5">
+            {dataBlocks.map((active, i) => (
+              <div
+                key={i}
+                className="flex-1 rounded-sm transition-all duration-100"
+                style={{
+                  background: active
+                    ? i % 3 === 0 ? '#ff00ff' : i % 3 === 1 ? '#00ffff' : '#e0b0ff'
+                    : '#1a0a2e',
+                  boxShadow: active ? `0 0 8px ${i % 2 === 0 ? '#ff00ff' : '#00ffff'}` : 'none',
+                }}
+              />
+            ))}
+          </div>
+
+          {/* Scanline */}
+          <div
+            className="absolute inset-y-0 w-1"
+            style={{
+              left: `${progress}%`,
+              background: 'linear-gradient(180deg, transparent, #ffffff, transparent)',
+              boxShadow: '0 0 10px #ffffff',
+            }}
+          />
+        </div>
+
+        {/* Stats */}
+        <div className="flex justify-between mt-2 font-mono text-xs text-[#e0b0ff]">
+          <span>SPEED: 847.3 MB/s</span>
+          <span>ETA: {Math.ceil((100 - progress) * 0.1)}s</span>
+        </div>
+
+        {/* Binary decoration */}
+        <div className="mt-4 font-mono text-[10px] text-[#ff00ff40] overflow-hidden whitespace-nowrap">
+          {Array(50).fill(0).map(() => Math.random() > 0.5 ? '1' : '0').join('')}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- AVATAR FRAME ---
+export const CyberpunkAvatarFrame = () => {
+  const [glitchFrame, setGlitchFrame] = useState(false);
+  const [scanLine, setScanLine] = useState(0);
+
+  useEffect(() => {
+    const glitchInterval = setInterval(() => {
+      if (Math.random() > 0.9) {
+        setGlitchFrame(true);
+        setTimeout(() => setGlitchFrame(false), 100);
+      }
+    }, 200);
+
+    const scanInterval = setInterval(() => {
+      setScanLine(s => (s + 2) % 100);
+    }, 30);
+
+    return () => {
+      clearInterval(glitchInterval);
+      clearInterval(scanInterval);
+    };
+  }, []);
+
+  return (
+    <div className="h-full flex items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div className="relative">
+        {/* Outer implant frame */}
+        <div
+          className="absolute -inset-4 rounded-full"
+          style={{
+            background: 'conic-gradient(from 0deg, #ff00ff, #00ffff, #ff00ff)',
+            opacity: 0.3,
+            filter: 'blur(8px)',
+          }}
+        />
+
+        {/* Cyber frame */}
+        <div
+          className="relative w-32 h-32 rounded-full overflow-hidden"
+          style={{
+            border: '3px solid #ff00ff',
+            boxShadow: '0 0 20px #ff00ff60, inset 0 0 20px #ff00ff40',
+            transform: glitchFrame ? 'translateX(2px)' : 'none',
+          }}
+        >
+          {/* Avatar placeholder */}
+          <div
+            className="absolute inset-0 flex items-center justify-center"
+            style={{
+              background: 'linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 100%)',
+            }}
+          >
+            <span className="text-4xl" style={{ filter: 'drop-shadow(0 0 10px #ff00ff)' }}>
+              ⬡
+            </span>
+          </div>
+
+          {/* Scan line */}
+          <div
+            className="absolute left-0 right-0 h-1 pointer-events-none"
+            style={{
+              top: `${scanLine}%`,
+              background: 'linear-gradient(180deg, transparent, #00ffff80, transparent)',
+            }}
+          />
+
+          {/* Implant overlays */}
+          <div className="absolute top-0 right-0 w-8 h-8">
+            <svg viewBox="0 0 32 32" className="w-full h-full">
+              <path
+                d="M32 0 L32 12 L28 12 L28 8 L24 8 L24 4 L20 4 L20 0 Z"
+                fill="#00ffff"
+                style={{ filter: 'drop-shadow(0 0 3px #00ffff)' }}
+              />
+            </svg>
+          </div>
+          <div className="absolute bottom-0 left-0 w-8 h-8">
+            <svg viewBox="0 0 32 32" className="w-full h-full">
+              <path
+                d="M0 32 L0 20 L4 20 L4 24 L8 24 L8 28 L12 28 L12 32 Z"
+                fill="#ff00ff"
+                style={{ filter: 'drop-shadow(0 0 3px #ff00ff)' }}
+              />
+            </svg>
+          </div>
+        </div>
+
+        {/* Status indicators */}
+        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex gap-1">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="w-2 h-2 rounded-full"
+              style={{
+                background: i < 4 ? '#00ff00' : '#ff0000',
+                boxShadow: `0 0 5px ${i < 4 ? '#00ff00' : '#ff0000'}`,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* ID label */}
+        <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 font-mono text-xs text-[#e0b0ff]">
+          ID://NETRUNNER_077
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- HACK NAV ---
+export const CyberpunkHackNav = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [typingText, setTypingText] = useState('');
+  const [cursorBlink, setCursorBlink] = useState(true);
+
+  const navItems = [
+    { cmd: 'breach', label: '> BREACH_PROTOCOL' },
+    { cmd: 'scan', label: '> NETWORK_SCAN' },
+    { cmd: 'decrypt', label: '> DECRYPT_DATA' },
+    { cmd: 'upload', label: '> UPLOAD_DAEMON' },
+  ];
+
+  useEffect(() => {
+    const interval = setInterval(() => setCursorBlink(b => !b), 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const text = navItems[activeIndex].cmd;
+    let i = 0;
+    setTypingText('');
+    const interval = setInterval(() => {
+      if (i < text.length) {
+        setTypingText(text.slice(0, i + 1));
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 50);
+    return () => clearInterval(interval);
+  }, [activeIndex]);
+
+  return (
+    <div className="h-full flex items-center justify-center p-4" style={{ background: '#0a0a14' }}>
+      <div
+        className="w-full max-w-xs rounded overflow-hidden"
+        style={{
+          background: 'rgba(0, 0, 0, 0.9)',
+          border: '1px solid #00ff00',
+          boxShadow: '0 0 20px rgba(0, 255, 0, 0.2)',
+        }}
+      >
+        {/* Terminal header */}
+        <div className="px-3 py-2 border-b border-[#00ff0040] flex items-center gap-2">
+          <span className="text-[#00ff00] animate-pulse">$</span>
+          <span className="font-mono text-xs text-[#00ff00]">HACK_TERMINAL</span>
+        </div>
+
+        {/* Nav items */}
+        <div className="p-2 space-y-1">
+          {navItems.map((item, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className="w-full text-left px-3 py-2 font-mono text-sm transition-all"
+              style={{
+                background: activeIndex === i ? 'rgba(0, 255, 0, 0.1)' : 'transparent',
+                color: activeIndex === i ? '#00ff00' : '#00ff0080',
+                textShadow: activeIndex === i ? '0 0 10px #00ff00' : 'none',
+              }}
+            >
+              {item.label}
+              {activeIndex === i && (
+                <span className="ml-2 text-[#ff00ff]">[SELECTED]</span>
+              )}
+            </button>
+          ))}
+        </div>
+
+        {/* Command line */}
+        <div className="px-3 py-2 border-t border-[#00ff0040] flex items-center gap-2">
+          <span className="text-[#ff00ff]">root@system:~$</span>
+          <span className="font-mono text-sm text-[#00ffff]">{typingText}</span>
+          <span
+            className="w-2 h-4"
+            style={{
+              background: cursorBlink ? '#00ff00' : 'transparent',
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- VIRUS ALERT ---
+export const CyberpunkVirusAlert = () => {
+  const [pulseIntensity, setPulseIntensity] = useState(0);
+  const [glitchOffset, setGlitchOffset] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const pulseInterval = setInterval(() => {
+      setPulseIntensity(p => (p + 0.1) % (Math.PI * 2));
+    }, 50);
+
+    const glitchInterval = setInterval(() => {
+      if (Math.random() > 0.8) {
+        setGlitchOffset({
+          x: (Math.random() - 0.5) * 4,
+          y: (Math.random() - 0.5) * 2,
+        });
+        setTimeout(() => setGlitchOffset({ x: 0, y: 0 }), 50);
+      }
+    }, 100);
+
+    return () => {
+      clearInterval(pulseInterval);
+      clearInterval(glitchInterval);
+    };
+  }, []);
+
+  const glowIntensity = 0.5 + Math.sin(pulseIntensity) * 0.5;
+
+  return (
+    <div className="h-full flex items-center justify-center p-6" style={{ background: '#0d0d1a' }}>
+      <div
+        className="relative w-full max-w-sm p-4 rounded"
+        style={{
+          background: 'rgba(255, 0, 0, 0.1)',
+          border: '2px solid #ff0000',
+          boxShadow: `0 0 ${20 + glowIntensity * 30}px rgba(255, 0, 0, ${0.3 + glowIntensity * 0.4})`,
+          transform: `translate(${glitchOffset.x}px, ${glitchOffset.y}px)`,
+        }}
+      >
+        {/* Warning icon */}
+        <div className="flex items-center gap-3 mb-3">
+          <div
+            className="w-12 h-12 flex items-center justify-center rounded"
+            style={{
+              background: 'rgba(255, 0, 0, 0.2)',
+              border: '1px solid #ff0000',
+            }}
+          >
+            <span className="text-2xl" style={{ filter: 'drop-shadow(0 0 5px #ff0000)' }}>
+              ⚠
+            </span>
+          </div>
+          <div>
+            <div className="font-mono text-lg font-bold text-[#ff0000]" style={{ textShadow: '0 0 10px #ff0000' }}>
+              MALWARE DETECTED
+            </div>
+            <div className="font-mono text-xs text-[#ff6666]">THREAT_LEVEL: CRITICAL</div>
+          </div>
+        </div>
+
+        {/* Alert details */}
+        <div className="space-y-2 font-mono text-xs">
+          <div className="flex justify-between text-[#e0b0ff]">
+            <span>TYPE:</span>
+            <span className="text-[#ff00ff]">NEURAL_WORM.EXE</span>
+          </div>
+          <div className="flex justify-between text-[#e0b0ff]">
+            <span>ORIGIN:</span>
+            <span className="text-[#00ffff]">UNKNOWN_NODE</span>
+          </div>
+          <div className="flex justify-between text-[#e0b0ff]">
+            <span>STATUS:</span>
+            <span className="text-[#ff0000] animate-pulse">ACTIVE</span>
+          </div>
+        </div>
+
+        {/* Action buttons */}
+        <div className="flex gap-2 mt-4">
+          <button
+            className="flex-1 py-2 font-mono text-xs rounded"
+            style={{
+              background: 'rgba(255, 0, 0, 0.2)',
+              border: '1px solid #ff0000',
+              color: '#ff0000',
+            }}
+          >
+            QUARANTINE
+          </button>
+          <button
+            className="flex-1 py-2 font-mono text-xs rounded"
+            style={{
+              background: 'rgba(0, 255, 0, 0.2)',
+              border: '1px solid #00ff00',
+              color: '#00ff00',
+            }}
+          >
+            PURGE
+          </button>
+        </div>
+
+        {/* Scanlines */}
+        <div
+          className="absolute inset-0 pointer-events-none rounded"
+          style={{
+            background: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,0,0,0.03) 2px, rgba(255,0,0,0.03) 4px)',
+          }}
+        />
+      </div>
+    </div>
+  );
+};
+
+// --- WIRE DIVIDER ---
+export const CyberpunkWireDivider = () => {
+  const [sparkPosition, setSparkPosition] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setSparkPosition(p => (p + 3) % 100);
+    }, 30);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="h-full flex items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div className="relative w-full max-w-md h-16">
+        <svg viewBox="0 0 400 60" className="w-full h-full">
+          {/* Wire paths */}
+          <path
+            d="M0 30 Q50 10 100 30 T200 30 T300 30 T400 30"
+            fill="none"
+            stroke="#ff00ff"
+            strokeWidth="3"
+            style={{ filter: 'drop-shadow(0 0 3px #ff00ff)' }}
+          />
+          <path
+            d="M0 25 Q75 45 150 25 T300 25 T400 25"
+            fill="none"
+            stroke="#00ffff"
+            strokeWidth="2"
+            style={{ filter: 'drop-shadow(0 0 2px #00ffff)' }}
+          />
+          <path
+            d="M0 35 Q60 55 120 35 T240 35 T360 35 L400 35"
+            fill="none"
+            stroke="#e0b0ff"
+            strokeWidth="2"
+            opacity="0.6"
+          />
+
+          {/* Connectors */}
+          {[0, 100, 200, 300, 400].map((x, i) => (
+            <g key={i}>
+              <circle
+                cx={x}
+                cy={30}
+                r={i % 2 === 0 ? 6 : 4}
+                fill="#1a0a2e"
+                stroke="#ff00ff"
+                strokeWidth="2"
+                style={{ filter: 'drop-shadow(0 0 5px #ff00ff)' }}
+              />
+              <circle
+                cx={x}
+                cy={30}
+                r={2}
+                fill="#00ffff"
+                style={{ filter: 'drop-shadow(0 0 3px #00ffff)' }}
+              />
+            </g>
+          ))}
+
+          {/* Traveling spark */}
+          <circle
+            cx={sparkPosition * 4}
+            cy={30 + Math.sin(sparkPosition * 0.1) * 5}
+            r="3"
+            fill="#ffffff"
+            style={{ filter: 'drop-shadow(0 0 8px #ffffff)' }}
+          />
+        </svg>
+
+        {/* Junction box decoration */}
+        <div
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded flex items-center justify-center"
+          style={{
+            background: 'linear-gradient(135deg, #2a2a3a 0%, #1a1a2a 100%)',
+            border: '2px solid #ff00ff',
+            boxShadow: '0 0 10px #ff00ff60',
+          }}
+        >
+          <span className="text-[#00ffff] text-xs">⚡</span>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- VOLTAGE SLIDER ---
+export const CyberpunkVoltageSlider = () => {
+  const [voltage, setVoltage] = useState(50);
+  const [isOverload, setIsOverload] = useState(false);
+
+  useEffect(() => {
+    setIsOverload(voltage > 80);
+  }, [voltage]);
+
+  const getVoltageColor = () => {
+    if (voltage < 30) return '#00ff00';
+    if (voltage < 60) return '#00ffff';
+    if (voltage < 80) return '#ff00ff';
+    return '#ff0000';
+  };
+
+  return (
+    <div className="h-full flex flex-col items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div className="w-full max-w-sm">
+        {/* Header */}
+        <div className="flex justify-between items-center mb-4">
+          <span className="font-mono text-xs text-[#00ffff]">VOLTAGE_CONTROL</span>
+          <span
+            className="font-mono text-lg font-bold"
+            style={{
+              color: getVoltageColor(),
+              textShadow: `0 0 10px ${getVoltageColor()}`,
+              animation: isOverload ? 'pulse 0.5s infinite' : 'none',
+            }}
+          >
+            {voltage}V
+          </span>
+        </div>
+
+        {/* Slider track */}
+        <div
+          className="relative h-10 rounded overflow-hidden"
+          style={{
+            background: 'rgba(26, 10, 46, 0.8)',
+            border: `2px solid ${isOverload ? '#ff0000' : '#ff00ff40'}`,
+            boxShadow: isOverload ? '0 0 20px rgba(255, 0, 0, 0.5)' : 'none',
+          }}
+        >
+          {/* Voltage level segments */}
+          <div className="absolute inset-1 flex gap-0.5">
+            {[...Array(20)].map((_, i) => {
+              const segmentActive = i < voltage / 5;
+              const segmentColor = i < 6 ? '#00ff00' : i < 12 ? '#00ffff' : i < 16 ? '#ff00ff' : '#ff0000';
+              return (
+                <div
+                  key={i}
+                  className="flex-1 rounded-sm transition-all"
+                  style={{
+                    background: segmentActive ? segmentColor : '#1a0a2e',
+                    boxShadow: segmentActive ? `0 0 8px ${segmentColor}` : 'none',
+                  }}
+                />
+              );
+            })}
+          </div>
+
+          {/* Slider input */}
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={voltage}
+            onChange={e => setVoltage(Number(e.target.value))}
+            className="absolute inset-0 w-full opacity-0 cursor-pointer"
+          />
+        </div>
+
+        {/* Scale markers */}
+        <div className="flex justify-between mt-2 font-mono text-[10px] text-[#e0b0ff]">
+          <span>0V</span>
+          <span>25V</span>
+          <span>50V</span>
+          <span>75V</span>
+          <span>100V</span>
+        </div>
+
+        {/* Warning */}
+        {isOverload && (
+          <div className="mt-4 p-2 rounded text-center font-mono text-xs" style={{ background: 'rgba(255, 0, 0, 0.2)', border: '1px solid #ff0000' }}>
+            <span className="text-[#ff0000] animate-pulse">⚠ OVERLOAD WARNING ⚠</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+// --- DRONE CARD ---
+export const CyberpunkDroneCard = () => {
+  const [isActive, setIsActive] = useState(false);
+  const [scanAngle, setScanAngle] = useState(0);
+
+  useEffect(() => {
+    if (!isActive) return;
+    const interval = setInterval(() => {
+      setScanAngle(a => (a + 5) % 360);
+    }, 50);
+    return () => clearInterval(interval);
+  }, [isActive]);
+
+  return (
+    <div className="h-full flex items-center justify-center p-6" style={{ background: '#0d0d1a' }}>
+      <div
+        className="relative w-full max-w-xs p-4 rounded-lg cursor-pointer"
+        onClick={() => setIsActive(!isActive)}
+        style={{
+          background: 'linear-gradient(180deg, rgba(26, 10, 46, 0.9) 0%, rgba(13, 13, 26, 0.9) 100%)',
+          border: `1px solid ${isActive ? '#00ffff' : '#ff00ff40'}`,
+          boxShadow: isActive ? '0 0 30px rgba(0, 255, 255, 0.3)' : 'none',
+        }}
+      >
+        {/* Drone visualization */}
+        <div className="relative w-full h-32 mb-4">
+          <svg viewBox="0 0 120 80" className="w-full h-full">
+            {/* Drone body */}
+            <ellipse cx="60" cy="40" rx="25" ry="10" fill="#2a2a3a" stroke="#00ffff" strokeWidth="1" />
+            <rect x="35" y="35" width="50" height="10" rx="2" fill="#1a1a2a" stroke="#ff00ff" strokeWidth="1" />
+
+            {/* Propeller arms */}
+            {[0, 90, 180, 270].map((angle, i) => (
+              <g key={i} transform={`rotate(${angle} 60 40)`}>
+                <line x1="60" y1="40" x2="60" y2="15" stroke="#00ffff" strokeWidth="2" />
+                <circle
+                  cx="60"
+                  cy="12"
+                  r="8"
+                  fill="none"
+                  stroke="#ff00ff"
+                  strokeWidth="1"
+                  style={{
+                    transformOrigin: '60px 12px',
+                    animation: isActive ? 'spin 0.1s linear infinite' : 'none',
+                  }}
+                />
+              </g>
+            ))}
+
+            {/* Scan cone */}
+            {isActive && (
+              <path
+                d={`M60 50 L${60 + Math.cos((scanAngle * Math.PI) / 180) * 40} ${50 + Math.sin((scanAngle * Math.PI) / 180) * 20} L${60 + Math.cos(((scanAngle + 30) * Math.PI) / 180) * 40} ${50 + Math.sin(((scanAngle + 30) * Math.PI) / 180) * 20} Z`}
+                fill="rgba(0, 255, 255, 0.2)"
+                stroke="#00ffff"
+                strokeWidth="0.5"
+              />
+            )}
+
+            {/* Camera eye */}
+            <circle cx="60" cy="45" r="4" fill={isActive ? '#ff0000' : '#ff000080'} style={{ filter: isActive ? 'drop-shadow(0 0 5px #ff0000)' : 'none' }} />
+          </svg>
+        </div>
+
+        {/* Info */}
+        <div className="space-y-2 font-mono text-xs">
+          <div className="flex justify-between">
+            <span className="text-[#e0b0ff]">UNIT_ID:</span>
+            <span className="text-[#00ffff]">DRONE-X7</span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[#e0b0ff]">STATUS:</span>
+            <span style={{ color: isActive ? '#00ff00' : '#ff0000' }}>
+              {isActive ? 'SCANNING' : 'STANDBY'}
+            </span>
+          </div>
+          <div className="flex justify-between">
+            <span className="text-[#e0b0ff]">BATTERY:</span>
+            <span className="text-[#ff00ff]">87%</span>
+          </div>
+        </div>
+
+        {/* Activation button */}
+        <div
+          className="mt-4 py-2 text-center font-mono text-xs rounded"
+          style={{
+            background: isActive ? 'rgba(0, 255, 0, 0.2)' : 'rgba(255, 0, 255, 0.2)',
+            border: `1px solid ${isActive ? '#00ff00' : '#ff00ff'}`,
+            color: isActive ? '#00ff00' : '#ff00ff',
+          }}
+        >
+          {isActive ? 'DEACTIVATE' : 'ACTIVATE'}
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
+    </div>
+  );
+};
+
+// --- CHIP ICON ---
+export const CyberpunkChipIcon = () => {
+  const [activePins, setActivePins] = useState<number[]>([]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const newActive = [...Array(3)].map(() => Math.floor(Math.random() * 16));
+      setActivePins(newActive);
+    }, 200);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="h-full flex items-center justify-center p-8" style={{ background: '#0d0d1a' }}>
+      <div className="relative">
+        <svg viewBox="0 0 100 100" className="w-32 h-32">
+          {/* Chip body */}
+          <rect
+            x="25"
+            y="25"
+            width="50"
+            height="50"
+            rx="4"
+            fill="linear-gradient(135deg, #1a1a2a 0%, #2a2a3a 100%)"
+            stroke="#ff00ff"
+            strokeWidth="2"
+            style={{ filter: 'drop-shadow(0 0 10px #ff00ff60)' }}
+          />
+
+          {/* Inner die */}
+          <rect
+            x="35"
+            y="35"
+            width="30"
+            height="30"
+            rx="2"
+            fill="#0d0d1a"
+            stroke="#00ffff"
+            strokeWidth="1"
+          />
+
+          {/* Circuit pattern */}
+          <path
+            d="M40 50 H55 M50 40 V55 M42 42 L48 48 M52 42 L58 48 M42 52 L48 58 M52 52 L58 58"
+            stroke="#00ffff"
+            strokeWidth="0.5"
+            fill="none"
+            opacity="0.6"
+          />
+
+          {/* Center core */}
+          <circle cx="50" cy="50" r="5" fill="#ff00ff" style={{ filter: 'drop-shadow(0 0 5px #ff00ff)' }} />
+
+          {/* Pins - top */}
+          {[0, 1, 2, 3].map(i => (
+            <rect
+              key={`top-${i}`}
+              x={30 + i * 10}
+              y="15"
+              width="4"
+              height="10"
+              fill={activePins.includes(i) ? '#00ffff' : '#00ffff40'}
+              style={{ filter: activePins.includes(i) ? 'drop-shadow(0 0 3px #00ffff)' : 'none' }}
+            />
+          ))}
+
+          {/* Pins - bottom */}
+          {[0, 1, 2, 3].map(i => (
+            <rect
+              key={`bottom-${i}`}
+              x={30 + i * 10}
+              y="75"
+              width="4"
+              height="10"
+              fill={activePins.includes(i + 4) ? '#ff00ff' : '#ff00ff40'}
+              style={{ filter: activePins.includes(i + 4) ? 'drop-shadow(0 0 3px #ff00ff)' : 'none' }}
+            />
+          ))}
+
+          {/* Pins - left */}
+          {[0, 1, 2, 3].map(i => (
+            <rect
+              key={`left-${i}`}
+              x="15"
+              y={30 + i * 10}
+              width="10"
+              height="4"
+              fill={activePins.includes(i + 8) ? '#e0b0ff' : '#e0b0ff40'}
+              style={{ filter: activePins.includes(i + 8) ? 'drop-shadow(0 0 3px #e0b0ff)' : 'none' }}
+            />
+          ))}
+
+          {/* Pins - right */}
+          {[0, 1, 2, 3].map(i => (
+            <rect
+              key={`right-${i}`}
+              x="75"
+              y={30 + i * 10}
+              width="10"
+              height="4"
+              fill={activePins.includes(i + 12) ? '#00ff00' : '#00ff0040'}
+              style={{ filter: activePins.includes(i + 12) ? 'drop-shadow(0 0 3px #00ff00)' : 'none' }}
+            />
+          ))}
+        </svg>
+
+        {/* Label */}
+        <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 font-mono text-xs text-[#e0b0ff]">
+          NEURAL_CHIP_v4.2
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- NEON HEADING ---
+export const CyberpunkNeonHeading = () => {
+  const [flickerStates, setFlickerStates] = useState([true, true, true, true, true, true, true, true]);
+
+  useEffect(() => {
+    const intervals = flickerStates.map((_, i) => {
+      return setInterval(() => {
+        if (Math.random() > 0.95) {
+          setFlickerStates(prev => {
+            const newState = [...prev];
+            newState[i] = false;
+            setTimeout(() => {
+              setFlickerStates(p => {
+                const s = [...p];
+                s[i] = true;
+                return s;
+              });
+            }, 50 + Math.random() * 100);
+            return newState;
+          });
+        }
+      }, 100 + i * 30);
+    });
+
+    return () => intervals.forEach(clearInterval);
+  }, []);
+
+  const text = 'CYBERPUNK';
+  const colors = ['#ff00ff', '#00ffff', '#ff00ff', '#e0b0ff', '#00ffff', '#ff00ff', '#00ffff', '#ff00ff', '#e0b0ff'];
+
+  return (
+    <div className="h-full flex flex-col items-center justify-center p-8" style={{ background: '#0a0a14' }}>
+      {/* Glow backdrop */}
+      <div
+        className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        style={{ filter: 'blur(40px)', opacity: 0.4 }}
+      >
+        <span className="text-6xl font-bold text-[#ff00ff]">{text}</span>
+      </div>
+
+      {/* Main heading */}
+      <h1 className="relative flex">
+        {text.split('').map((char, i) => (
+          <span
+            key={i}
+            className="text-5xl font-bold font-mono transition-opacity"
+            style={{
+              color: flickerStates[i] ? colors[i] : `${colors[i]}40`,
+              textShadow: flickerStates[i]
+                ? `0 0 10px ${colors[i]}, 0 0 20px ${colors[i]}, 0 0 40px ${colors[i]}, 0 0 80px ${colors[i]}`
+                : 'none',
+              opacity: flickerStates[i] ? 1 : 0.3,
+            }}
+          >
+            {char}
+          </span>
+        ))}
+      </h1>
+
+      {/* Subtitle */}
+      <div className="relative mt-4">
+        <span
+          className="font-mono text-sm tracking-[0.5em] text-[#00ffff]"
+          style={{ textShadow: '0 0 10px #00ffff' }}
+        >
+          DISTRICT
+        </span>
+      </div>
+
+      {/* Decorative lines */}
+      <div className="relative w-64 mt-6">
+        <div className="h-px bg-gradient-to-r from-transparent via-[#ff00ff] to-transparent" style={{ boxShadow: '0 0 10px #ff00ff' }} />
+        <div className="flex justify-center -mt-1">
+          <div className="w-3 h-3 rotate-45 border border-[#ff00ff]" style={{ background: '#0a0a14' }} />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// --- RAIN BACKGROUND ---
+export const CyberpunkRainBackground = () => {
+  const [raindrops, setRaindrops] = useState<{ x: number; delay: number; duration: number; char: string }[]>([]);
+
+  useEffect(() => {
+    const chars = '01アイウエオカキクケコ'.split('');
+    const drops = [...Array(40)].map(() => ({
+      x: Math.random() * 100,
+      delay: Math.random() * 2,
+      duration: 1 + Math.random() * 2,
+      char: chars[Math.floor(Math.random() * chars.length)],
+    }));
+    setRaindrops(drops);
+  }, []);
+
+  return (
+    <div className="h-full relative overflow-hidden" style={{ background: 'linear-gradient(180deg, #0a0a14 0%, #1a0a2e 50%, #0d0d1a 100%)' }}>
+      {/* Digital rain */}
+      {raindrops.map((drop, i) => (
+        <div
+          key={i}
+          className="absolute font-mono text-sm"
+          style={{
+            left: `${drop.x}%`,
+            animation: `digitalRain ${drop.duration}s linear infinite`,
+            animationDelay: `${drop.delay}s`,
+            color: i % 3 === 0 ? '#ff00ff' : i % 3 === 1 ? '#00ffff' : '#e0b0ff',
+            textShadow: `0 0 10px ${i % 2 === 0 ? '#ff00ff' : '#00ffff'}`,
+            opacity: 0.3 + Math.random() * 0.5,
+          }}
+        >
+          {drop.char}
+        </div>
+      ))}
+
+      {/* Fog layers */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/3"
+        style={{
+          background: 'linear-gradient(180deg, transparent 0%, rgba(255, 0, 255, 0.1) 100%)',
+        }}
+      />
+
+      {/* Central content area */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div
+          className="p-8 rounded-lg"
+          style={{
+            background: 'rgba(13, 13, 26, 0.7)',
+            backdropFilter: 'blur(10px)',
+            border: '1px solid #ff00ff40',
+          }}
+        >
+          <div className="font-mono text-center">
+            <div className="text-2xl text-[#ff00ff] mb-2" style={{ textShadow: '0 0 20px #ff00ff' }}>
+              NIGHT CITY
+            </div>
+            <div className="text-sm text-[#00ffff]">2077.12.31</div>
+          </div>
+        </div>
+      </div>
+
+      {/* Holographic grid floor */}
+      <div
+        className="absolute inset-x-0 bottom-0 h-1/4"
+        style={{
+          background: 'linear-gradient(180deg, transparent 0%, rgba(0, 255, 255, 0.05) 100%)',
+          backgroundImage: `
+            linear-gradient(90deg, #00ffff10 1px, transparent 1px),
+            linear-gradient(0deg, #00ffff10 1px, transparent 1px)
+          `,
+          backgroundSize: '40px 20px',
+          transform: 'perspective(500px) rotateX(60deg)',
+          transformOrigin: 'bottom',
+        }}
+      />
+
+      <style>{`
+        @keyframes digitalRain {
+          0% { transform: translateY(-100%); opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { transform: translateY(100vh); opacity: 0; }
+        }
+      `}</style>
+    </div>
+  );
+};
+
 // Export all components
-export const cyberpunkComponents = {
+export const cyberpunkComponents: Record<string, React.FC> = {
   'glitch-button': GlitchButton,
   'holographic-card': HolographicCard,
   'neural-link-loader': NeuralLoader,
@@ -1093,4 +2215,16 @@ export const cyberpunkComponents = {
   'credit-chip-card': CreditChipCard,
   'augmentation-selector': AugmentationSelector,
   'hacker-terminal': HackerTerminal,
+  'cyberpunk-neural-input': CyberpunkNeuralInput,
+  'cyberpunk-chrome-badge': CyberpunkChromeBadge,
+  'cyberpunk-download-progress': CyberpunkDownloadProgress,
+  'cyberpunk-avatar-frame': CyberpunkAvatarFrame,
+  'cyberpunk-hack-nav': CyberpunkHackNav,
+  'cyberpunk-virus-alert': CyberpunkVirusAlert,
+  'cyberpunk-wire-divider': CyberpunkWireDivider,
+  'cyberpunk-voltage-slider': CyberpunkVoltageSlider,
+  'cyberpunk-drone-card': CyberpunkDroneCard,
+  'cyberpunk-chip-icon': CyberpunkChipIcon,
+  'cyberpunk-neon-heading': CyberpunkNeonHeading,
+  'cyberpunk-rain-background': CyberpunkRainBackground,
 };
