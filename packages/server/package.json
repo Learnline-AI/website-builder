@@ -12,7 +12,9 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
     "@prisma/client": "^6.1.0",
+    "@ui-museum/mcp": "workspace:*",
     "@ui-museum/shared": "workspace:*",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",

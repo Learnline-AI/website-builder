@@ -136,9 +136,38 @@ export function useMCPClient(config: MCPConfig = {}) {
     abortControllerRef.current = new AbortController();
 
     try {
-      // For MVP, we'll implement a smart local response
-      // In production, this would call the Claude API via MCP
-      const response = await generateLocalResponse(content, components);
+      // Call the real API endpoint
+      const apiEndpoint = config.endpoint || 'http://localhost:3001/api/chat';
+
+      const apiResponse = await fetch(apiEndpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          message: content,
+          history: conversationHistory.current.slice(0, -1), // Exclude the message we just added
+        }),
+        signal: abortControllerRef.current.signal,
+      });
+
+      if (!apiResponse.ok) {
+        throw new Error(`API error: ${apiResponse.status}`);
+      }
+
+      const data = await apiResponse.json();
+
+      // Transform API response to MCPResponse format
+      const response: MCPResponse = {
+        content: data.content,
+        components: data.components?.map((c: { id: string; name: string; layer: string; category: string }) => ({
+          id: c.id,
+          name: c.name,
+          layer: c.layer,
+          category: c.category,
+        })) as unknown as ComponentEntry[],
+        toolCalls: data.toolsUsed?.map((name: string) => ({ name, input: {} })),
+      };
 
       // Add assistant response to history
       conversationHistory.current.push({ role: 'assistant', content: response.content });
@@ -148,9 +177,13 @@ export function useMCPClient(config: MCPConfig = {}) {
       if (error instanceof Error && error.name === 'AbortError') {
         throw new Error('Request cancelled');
       }
-      throw error;
+      // Fallback to local response on error
+      console.warn('API call failed, falling back to local response:', error);
+      const response = await generateLocalResponse(content, components);
+      conversationHistory.current.push({ role: 'assistant', content: response.content });
+      return response;
     }
-  }, []);
+  }, [config.endpoint]);
 
   // Clear conversation history
   const clearHistory = useCallback(() => {

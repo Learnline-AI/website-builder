@@ -10,6 +10,7 @@ import { projectRoutes } from './routes/projects.js';
 import { recipeRoutes } from './routes/recipes.js';
 import { assetRoutes } from './routes/assets.js';
 import exportRoutes from './routes/export.js';
+import { chatRoutes } from './routes/chat.js';
 import { errorHandler } from './middleware/error-handler.js';
 import { requestLogger } from './middleware/request-logger.js';
 import type { WebSocketEvent } from '@ui-museum/shared';
@@ -45,6 +46,7 @@ app.use('/api/projects', projectRoutes);
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/assets', assetRoutes);
 app.use('/api/export', exportRoutes);
+app.use('/api/chat', chatRoutes);
 
 // Error handler (must be last)
 app.use(errorHandler);

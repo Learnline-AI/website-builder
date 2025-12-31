@@ -4,6 +4,10 @@
   "private": true,
   "type": "module",
   "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./elements": "./dist/elements.js"
+  },
   "bin": {
     "ui-museum-mcp": "./dist/index.js"
   },
